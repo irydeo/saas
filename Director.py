@@ -1,5 +1,16 @@
+############################################################
+# -*- coding: utf-8 -*-
+#
+# SAAS sequence director to sync both nodes captures
+#
+# Francisco José Calvo Fernández (http://www.irydeo.com)
+# (c) 2021
+# Licence GPL v3
+############################################################
+
 from Commands import Commands
 import time
+
 
 class Director:
 

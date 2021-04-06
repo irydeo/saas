@@ -1,3 +1,13 @@
+############################################################
+# -*- coding: utf-8 -*-
+#
+# SAAS <-> CCDCiel communication
+#
+# Francisco José Calvo Fernández (http://www.irydeo.com)
+# (c) 2021
+# Licence GPL v3
+############################################################
+
 from ccdciel import ccdciel
 import os
 
@@ -27,7 +37,6 @@ class Commands:
         else:
             print("DEBUG CMD: Capture_start")
 
-
     def guide(self):
 
         if not self.debug:
@@ -47,7 +56,6 @@ class Commands:
     def autofocus(self):
         self.set_self_url()
         ccdciel('Autofocus')['result']
-
 
     def is_capturing(self):
 
