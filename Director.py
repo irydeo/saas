@@ -35,6 +35,8 @@ class Director:
         self.current_master_exposures = 0
         self.master = None
         self.slave = None
+        self.ar = 0
+        self.dec = 0
 
     def set_node(self, node, host, port):
         if node == "master":
@@ -47,7 +49,7 @@ class Director:
             self.slave = Commands(self.slave_host, self.slave_port )
 
     def set_integration_time(self, integration_time):
-        self.integration_time = integration_time
+        self.integration_time = int(integration_time)
 
     def set_single_exposure_time(self, node, single_exposure_time):
         if node == "master":
@@ -71,8 +73,9 @@ class Director:
         self.object_name = object_name
 
     def slew(self, ar, dec):
-        print("Slewing to " + str(ar) + "/" + str(dec))
-
+        self.ar = ar
+        self.dec = dec
+        print("Slewing to " + str(self.ar) + "/" + str(self.dec))
 
     def sync(self):
         self.master.sync()
@@ -86,23 +89,27 @@ class Director:
     def start_guiding(self):
         self.master.guide()
 
-    def start_seq(self):
+    def calculate_params(self):
         self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
         self.master_burst = self.master_number_of_exposures / self.dither_per_exposures
         print("Master burst: " + str(self.master_burst))
         print("Master dither every: " + str(self.dither_per_exposures))
         print("Total master exposures: " + str(self.master_number_of_exposures))
 
-        self.slave_burst = round((self.master_single_exposure_time * self.dither_per_exposures) / self.slave_single_exposure_time)
+        self.slave_burst = round(
+            (self.master_single_exposure_time * self.dither_per_exposures) / self.slave_single_exposure_time)
         print("Slave burst (dither every): " + str(self.slave_burst))
         self.slave_number_of_exposures = self.slave_burst * self.master_burst
-        print("Total slave exposures: " + str(self.slave_number_of_exposures ))
+        print("Total slave exposures: " + str(self.slave_number_of_exposures))
+
+    def start_seq(self):
+        self.calculate_params()
 
         for i in range(int(self.master_burst)):
             print("Capturing...")
+            self.current_master_exposures += self.dither_per_exposures
             self.master.capture(self.master_single_exposure_time, self.frame_type, "master__" + self.object_name, self.master_binning, self.dither_per_exposures)
             self.slave.capture(self.slave_single_exposure_time, self.frame_type, "slave__" + self.object_name, self.slave_binning, self.slave_burst)
-            self.current_master_exposures += self.dither_per_exposures
 
             if self.current_master_exposures == self.master_burst:
                 while self.slave.is_capturing():
