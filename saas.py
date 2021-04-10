@@ -19,6 +19,7 @@ from PyQt5.QtGui import QImage, QPixmap
 from ui.main_ui import Ui_MainWindow
 from Director import Director
 from Profile import Profile
+from Options import Options
 import threading
 
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -38,10 +39,26 @@ class Saas(Ui_MainWindow):
         self.update_ui_thread = None
         self.profiles = Profile()
         self.director = Director()
+        self.options = Options()
 
         # Load profiles
         self.master_profile.addItems(self.profiles.get_list())
         self.slave_profile.addItems(self.profiles.get_list())
+
+        # Set correct option
+        self.object_name.setText(self.options.get("object_name", "Object name"))
+        self.ar.setText(self.options.get("ar", "Enter AR hh:mm:ss"))
+        self.dec.setText(self.options.get("dec", "Enter DEC dd:mm:ss"))
+        self.master_profile.setCurrentText(self.options.get("master_profile", "None"))
+        self.slave_profile.setCurrentText(self.options.get("slave_profile", "None"))
+        self.master_port.setText(self.options.get("master_port", 3277))
+        self.slave_port.setText(self.options.get("slave_port", 9999))
+        self.integration_time.setValue(int(self.options.get("integration_time", 300)))
+        self.master_bin.setValue(int(self.options.get("master_bin", 1)))
+        self.slave_bin.setValue(int(self.options.get("slave_bin", 1)))
+        self.master_single_exposure.setValue(int(self.options.get("master_single_exposure", 120)))
+        self.slave_single_exposure.setValue(int(self.options.get("slave_single_exposure", 5)))
+        self.dither_every.setValue(int(self.options.get("dither_every", 30)))
 
         # Set initial parameters for Director
         self.set_params()
@@ -53,6 +70,9 @@ class Saas(Ui_MainWindow):
         self.slave_single_exposure.valueChanged.connect(self.set_params)
         self.dither_every.valueChanged.connect(self.set_params)
         self.integration_time.valueChanged.connect(self.set_params)
+        self.object_name.editingFinished.connect(self.set_params)
+        self.ar.editingFinished.connect(self.set_params)
+        self.dec.editingFinished.connect(self.set_params)
 
         # Connect start
         self.start.clicked.connect(self.start_click)
@@ -129,6 +149,8 @@ class Saas(Ui_MainWindow):
             if self.master_profile.currentText() != self.slave_profile.currentText():
                 port = self.profiles.get_port(self.master_profile.currentText())
                 self.master_port.setText(str(port))
+                self.options.set("master_profile", self.master_profile.currentText())
+                self.options.set("master_port", port)
             else:
                 quit_msg = "Select a different profile. Master and slave can be the same"
                 reply = QMessageBox.information(self.dialog, 'Message',
@@ -148,6 +170,8 @@ class Saas(Ui_MainWindow):
             if self.master_profile.currentText() != self.slave_profile.currentText():
                 port = self.profiles.get_port(self.slave_profile.currentText())
                 self.slave_port.setText(str(port))
+                self.options.set("slave_profile", self.slave_profile.currentText())
+                self.options.set("slave_port", port)
             else:
                 quit_msg = "Select a different profile. Master and slave can't be the same"
                 reply = QMessageBox.information(self.dialog, 'Message',
@@ -172,6 +196,17 @@ class Saas(Ui_MainWindow):
         self.director.set_single_exposure_time("master", int(self.master_single_exposure.value()))
         self.director.set_single_exposure_time("slave", int(self.slave_single_exposure.value()))
         self.director.set_dither_per_exposures(int(self.dither_every.value()))
+
+        self.options.set("object_name", self.object_name.text())
+        self.options.set("ar", self.ar.text())
+        self.options.set("dec", self.dec.text())
+
+        self.options.set("integration_time", self.integration_time.value())
+        self.options.set("master_bin", self.master_bin.value())
+        self.options.set("slave_bin", self.slave_bin.value())
+        self.options.set("master_single_exposure", self.master_single_exposure.value())
+        self.options.set("slave_single_exposure", self.slave_single_exposure.value())
+        self.options.set("dither_every", self.dither_every.value())
 
         # Update class
         self.director.calculate_params()

@@ -43,35 +43,15 @@
       <rect>
        <x>10</x>
        <y>82</y>
-       <width>101</width>
+       <width>211</width>
        <height>32</height>
       </rect>
+     </property>
+     <property name="currentText">
+      <string/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <item>
-      <property name="text">
-       <string>QHY42</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>QHY268</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QPushButton" name="run_master">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>82</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Run</string>
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="master_bin">
@@ -551,6 +531,59 @@
       <string>Focus</string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_176">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>190</y>
+       <width>201</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Status</string>
+     </property>
+    </widget>
+    <widget class="Line" name="line_34">
+     <property name="geometry">
+      <rect>
+       <x>250</x>
+       <y>210</y>
+       <width>211</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="master_more_options">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>180</y>
+       <width>41</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>...</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="groupBox">
     <property name="geometry">
@@ -567,7 +600,7 @@
     <widget class="QSpinBox" name="integration_time">
      <property name="geometry">
       <rect>
-       <x>800</x>
+       <x>850</x>
        <y>50</y>
        <width>81</width>
        <height>31</height>
@@ -575,9 +608,9 @@
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
-       <weight>75</weight>
-       <bold>true</bold>
+       <pointsize>12</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
       </font>
      </property>
      <property name="contextMenuPolicy">
@@ -585,6 +618,9 @@
      </property>
      <property name="toolTip">
       <string>sets the camera bin</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -602,17 +638,15 @@
     <widget class="QLabel" name="label_42">
      <property name="geometry">
       <rect>
-       <x>680</x>
+       <x>735</x>
        <y>55</y>
-       <width>121</width>
+       <width>111</width>
        <height>21</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <pointsize>10</pointsize>
-       <weight>50</weight>
-       <bold>false</bold>
+       <pointsize>12</pointsize>
       </font>
      </property>
      <property name="text">
@@ -622,11 +656,20 @@
     <widget class="QLineEdit" name="object_name">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>10</x>
        <y>50</y>
        <width>161</width>
        <height>32</height>
       </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(231, 231, 231);
+border:none;</string>
      </property>
      <property name="text">
       <string>Object Name</string>
@@ -675,90 +718,51 @@
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLabel" name="label_51">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>50</y>
-       <width>41</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Name</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="ar">
      <property name="geometry">
       <rect>
-       <x>270</x>
+       <x>180</x>
        <y>50</y>
        <width>161</width>
        <height>32</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(231, 231, 231);
+border: none;</string>
+     </property>
      <property name="text">
-      <string>00:00:00</string>
+      <string>AR (HH:mm:ss)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_52">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>50</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>AR</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_53">
-     <property name="geometry">
-      <rect>
-       <x>450</x>
-       <y>50</y>
-       <width>31</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>DEC</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="dec">
      <property name="geometry">
       <rect>
-       <x>490</x>
+       <x>350</x>
        <y>50</y>
        <width>161</width>
        <height>32</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(231, 231, 231);
+border: none</string>
+     </property>
      <property name="text">
-      <string>00:00:00</string>
+      <string>DEC (DD:mm:ss)</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -782,35 +786,15 @@
       <rect>
        <x>10</x>
        <y>82</y>
-       <width>101</width>
+       <width>211</width>
        <height>32</height>
       </rect>
+     </property>
+     <property name="currentText">
+      <string/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <item>
-      <property name="text">
-       <string>QHY42</string>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>QHY268</string>
-      </property>
-     </item>
-    </widget>
-    <widget class="QPushButton" name="run_slave">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>82</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Run</string>
+      <number>-1</number>
      </property>
     </widget>
     <widget class="QSpinBox" name="slave_bin">
@@ -1346,7 +1330,7 @@ color: rgb(0, 255, 0);</string>
   </action>
   <action name="actionSequence_options">
    <property name="text">
-    <string>Sequence options</string>
+    <string>&amp;Sequence options</string>
    </property>
   </action>
  </widget>

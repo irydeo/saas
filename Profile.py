@@ -10,8 +10,15 @@
 import xml.etree.ElementTree as ET
 from pathlib import Path
 import glob
-
+############################################################
+# -*- coding: utf-8 -*-
 #
+# SAAS CCDCiel profile management
+#
+# Francisco José Calvo Fernández (http://www.irydeo.com)
+# (c) 2021
+# Licence GPL v3
+############################################################
 class Profile:
     def __init__(self):
         print("Creating new profiles engine...")
