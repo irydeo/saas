@@ -35,6 +35,7 @@ class Saas(Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(dialog)
         self.dialog = dialog
+        self.is_dual_mode_enabled = True
         self.seq_thread = None
         self.update_ui_thread = None
         self.profiles = Profile()
@@ -60,8 +61,19 @@ class Saas(Ui_MainWindow):
         self.slave_single_exposure.setValue(int(self.options.get("slave_single_exposure", 5)))
         self.dither_every.setValue(int(self.options.get("dither_every", 30)))
 
+        self.is_dual_mode_enabled = bool(self.options.get("dual_mode", True))
+        self.actionDual_mode.setChecked(self.is_dual_mode_enabled)
+        if not self.is_dual_mode_enabled:
+            self.slaveSystem.setDisabled(True)
+            self.sm_burst_options.setEnabled(True)
+            self.director.set_dual_mode(False)
+
+
         # Set initial parameters for Director
         self.set_params()
+
+        # Connect menus
+        self.actionDual_mode.changed.connect(self.dual_mode)
 
         # Connect input widgets
         self.master_bin.valueChanged.connect(self.set_params)
@@ -83,6 +95,21 @@ class Saas(Ui_MainWindow):
 
         self.log.setText("Master status: " + str(self.director.current_master_exposures) + " of " + str(self.director.master_number_of_exposures))
 
+    ##################
+    ## Connect menu actions: Dual mode settings
+    ##################
+    def dual_mode(self):
+        # Get current status
+        if self.actionDual_mode.isChecked():   # Dual mode is enabled
+            self.slaveSystem.setDisabled(False)
+            self.options.set("dual_mode", True)
+            self.sm_burst_options.setEnabled(False)
+            self.director.set_dual_mode(True)
+        else:                                   # Single mode
+            self.slaveSystem.setDisabled(True)
+            self.options.set("dual_mode", False)
+            self.sm_burst_options.setEnabled(True)
+            self.director.set_dual_mode(False)
 
     def load_latest_image(self, node):
         image = QImage()
@@ -105,13 +132,21 @@ class Saas(Ui_MainWindow):
     ##################
     def start_click(self):
         self.director.set_node("master", self.master_host.text(), self.master_port.text())
-        self.director.set_node("slave", self.slave_host.text(), self.slave_port.text())
         self.director.set_integration_time(int(self.integration_time.value()))  # Set total integration time in seconds
         self.director.set_single_exposure_time("master", int(self.master_single_exposure.value()))  # Master exposures are 120s
-        self.director.set_single_exposure_time("slave", int(self.slave_single_exposure.value()))  # Master exposures are 120s
         self.director.set_binning("master", int(self.master_bin.value()))
-        self.director.set_binning("slave", int(self.slave_bin.value()))
         self.director.set_frame_type("Light")
+
+        if self.is_dual_mode_enabled:
+            self.director.set_node("slave", self.slave_host.text(), self.slave_port.text())
+            self.director.set_single_exposure_time("slave",
+                                                   int(self.slave_single_exposure.value()))  # Master exposures are 120s
+            self.director.set_binning("slave", int(self.slave_bin.value()))
+        else:
+            # Sigle mode
+            self.director.set_sm_group_every(self.sm_group_every.value())
+            self.director.set_sm_group_delay(self.sm_group_delay.value())
+
 
         self.director.set_dither_per_exposures(int(self.dither_every.value()))  # Dither each frame in master node, system will calculate needed data for slave
 
@@ -121,8 +156,11 @@ class Saas(Ui_MainWindow):
         self.director.slew(self.ar.text(), self.dec.text())
         # self.director.sync()
         self.director.autofocus("master")
-        self.director.autofocus("slave")
-        self.director.start_guiding()
+
+        if self.is_dual_mode_enabled:
+            self.director.autofocus("slave")
+
+        #self.director.start_guiding()
 
         self.seq_thread = threading.Thread(target= self.director.start_seq)
         self.seq_thread.start()
@@ -133,6 +171,8 @@ class Saas(Ui_MainWindow):
 
         self.start.setDisabled(bool(1))
         self.stop.setEnabled(bool(1))
+
+
 
     def stop_click(self):
         # Send signals to terminate
@@ -222,7 +262,10 @@ class Saas(Ui_MainWindow):
             self.log.setText("Master status: " + str(self.director.current_master_exposures) + " of " + str(
                 self.director.master_number_of_exposures))
             self.load_latest_image("master")
-            self.load_latest_image("slave")
+
+            if self.is_dual_mode_enabled:
+                self.load_latest_image("slave")
+
             time.sleep(int(self.director.master_single_exposure_time))
 
 

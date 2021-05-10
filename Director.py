@@ -14,8 +14,9 @@ import time
 
 class Director:
 
-    def __init__(self):
+    def __init__(self, dual_mode=True):
         print("Creating new director engine...")
+        self.dual_mode=dual_mode
         self.master_host = "localhost"
         self.master_port = 3277
         self.slave_host = "localhost"
@@ -37,6 +38,19 @@ class Director:
         self.slave = None
         self.ar = 0
         self.dec = 0
+
+        # Single mode
+        self.sm_group_every = 1
+        self.sm_group_delay = 0
+
+    def set_sm_group_every(self, group_every):
+        self.sm_group_every = group_every
+
+    def set_sm_group_delay(self, group_delay):
+        self.sm_group_delay = group_delay
+
+    def set_dual_mode(self, dual_mode):
+        self.dual_mode=dual_mode
 
     def set_node(self, node, host, port):
         if node == "master":
@@ -90,26 +104,57 @@ class Director:
         self.master.guide()
 
     def calculate_params(self):
-        self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
-        self.master_burst = self.master_number_of_exposures / self.dither_per_exposures
-        print("Master burst: " + str(self.master_burst))
-        print("Master dither every: " + str(self.dither_per_exposures))
-        print("Total master exposures: " + str(self.master_number_of_exposures))
+        if self.dual_mode:
+            self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
+            self.master_burst = self.master_number_of_exposures / self.dither_per_exposures
+            print("Master burst: " + str(self.master_burst))
+            print("Master dither every: " + str(self.dither_per_exposures))
+            print("Total master exposures: " + str(self.master_number_of_exposures))
 
-        self.slave_burst = round(
-            (self.master_single_exposure_time * self.dither_per_exposures) / self.slave_single_exposure_time)
-        print("Slave burst (dither every): " + str(self.slave_burst))
-        self.slave_number_of_exposures = self.slave_burst * self.master_burst
-        print("Total slave exposures: " + str(self.slave_number_of_exposures))
+            self.slave_burst = round(
+                (self.master_single_exposure_time * self.dither_per_exposures) / self.slave_single_exposure_time)
+            print("Slave burst (dither every): " + str(self.slave_burst))
+            self.slave_number_of_exposures = self.slave_burst * self.master_burst
+            print("Total slave exposures: " + str(self.slave_number_of_exposures))
+        else:
+            # TO-DO
+            self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
+            self.master_burst = self.master_number_of_exposures / self.sm_group_every
+
 
     def start_seq(self):
+        if self.dual_mode:
+            self.start_dual_mode_seq()
+        else:
+            self.start_single_mode_seq()
+
+    def start_single_mode_seq(self):
+        print("Using single mode...")
+        self.calculate_params()
+        # Calculate number of groups:
+        # Exposures = Total integration time / single exp
+        # Burst number = Exposures / Group_every
+
+        for i in range(int(self.master_burst)):
+            self.master.capture(self.master_single_exposure_time, self.frame_type, "burst_" + str(i) + "_" + self.object_name, self.master_binning, self.sm_group_every)
+            # Wait till master burst is finished
+            while self.master.is_capturing():
+                print("Waiting for the end of current master burst")
+                time.sleep(self.master_single_exposure_time)
+
+            time.sleep(self.sm_group_delay)
+
+
+    def start_dual_mode_seq(self):
         self.calculate_params()
 
         for i in range(int(self.master_burst)):
             print("Capturing...")
             self.current_master_exposures += self.dither_per_exposures
-            self.master.capture(self.master_single_exposure_time, self.frame_type, "master__" + self.object_name, self.master_binning, self.dither_per_exposures)
-            self.slave.capture(self.slave_single_exposure_time, self.frame_type, "slave__" + self.object_name, self.slave_binning, self.slave_burst)
+            self.master.capture(self.master_single_exposure_time, self.frame_type, "master__" + self.object_name,
+                                self.master_binning, self.dither_per_exposures)
+            self.slave.capture(self.slave_single_exposure_time, self.frame_type, "slave__" + self.object_name,
+                               self.slave_binning, self.slave_burst)
 
             if self.current_master_exposures == self.master_burst:
                 while self.slave.is_capturing():
@@ -125,3 +170,4 @@ class Director:
             while self.master.is_capturing():
                 print("Waiting for the end of current master burst")
                 time.sleep(self.master_single_exposure_time)
+
