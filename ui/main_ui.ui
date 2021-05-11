@@ -72,7 +72,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the camera bin</string>
+      <string>Sets the camera bin</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -239,7 +239,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the exposure time</string>
+      <string>Sets the exposure time per image</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -285,7 +285,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the exposure time</string>
+      <string>Sets number of frames needed to dither</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -331,7 +331,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the exposure time</string>
+      <string>Autofocus every</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -579,7 +579,7 @@
        <enum>Qt::ActionsContextMenu</enum>
       </property>
       <property name="toolTip">
-       <string>sets the exposure time</string>
+       <string>Group every selected number of frames</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -652,7 +652,7 @@
        <enum>Qt::ActionsContextMenu</enum>
       </property>
       <property name="toolTip">
-       <string>sets the exposure time</string>
+       <string>Delay between groups</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -684,6 +684,41 @@
       </property>
       <property name="text">
        <string>Grouping delay:</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fo_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>100</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Grouping keyword:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="sm_group_keyword">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>100</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GROUP</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </widget>
@@ -739,7 +774,7 @@
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the camera bin</string>
+      <string>Total integration time in seconds for all sequence</string>
      </property>
      <property name="styleSheet">
       <string notr="true"/>
@@ -928,6 +963,19 @@ border: none</string>
       <string>DEC</string>
      </property>
     </widget>
+    <widget class="QPushButton" name="get_coords">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>50</y>
+       <width>101</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Get</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="slaveSystem">
     <property name="geometry">
@@ -975,7 +1023,7 @@ border: none</string>
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the camera bin</string>
+      <string>Sets the camera bin</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1117,7 +1165,7 @@ border: none</string>
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the exposure time</string>
+      <string>Sets the exposure time</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -1150,7 +1198,7 @@ border: none</string>
       <enum>Qt::ActionsContextMenu</enum>
      </property>
      <property name="toolTip">
-      <string>sets the exposure time</string>
+      <string>Autofocus every</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>

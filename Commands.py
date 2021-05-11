@@ -9,6 +9,8 @@
 ############################################################
 
 from ccdciel import ccdciel
+from astropy import units as u
+from astropy.coordinates import SkyCoord
 import os
 
 
@@ -45,9 +47,14 @@ class Commands:
         else:
             print("DEBUG CMD: Autoguider_startguiding")
 
-    def slew(self):
+    def slew(self, ra, dec):
         self.set_self_url()
-        ccdciel('Telescope_slew')['result']
+        print(self.phost)
+        print(self.pport)
+        # Transform coords
+        c = SkyCoord(ra, dec, unit=(u.hourangle, u.deg))
+        ccdciel('Telescope_slewasync', [c.ra.hour, c.dec.degree])['result']
+
 
     def sync(self):
         self.set_self_url()
@@ -58,7 +65,6 @@ class Commands:
         ccdciel('Autofocus')['result']
 
     def is_capturing(self):
-
         if not self.debug:
             self.set_self_url()
             return (ccdciel('Capture_running')['result'])
@@ -69,6 +75,14 @@ class Commands:
                 return 0
             else:
                 return 1
+
+    def is_slewing(self):
+        if not self.debug:
+            self.set_self_url()
+            return ccdciel('Telescope_slewing')['result']
+        else:
+            print("DEBUG CMD: Telescope_slewing")
+            return 0
 
     def do_dither(self):
 

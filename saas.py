@@ -63,11 +63,14 @@ class Saas(Ui_MainWindow):
 
         self.is_dual_mode_enabled = bool(self.options.get("dual_mode", True))
         self.actionDual_mode.setChecked(self.is_dual_mode_enabled)
+
+        self.sm_group_every.setValue(self.options.get("sm_group_every", 1))
+        self.sm_group_delay.setValue(self.options.get("sm_group_delay", 1))
+        self.sm_group_keyword.setText(self.options.get("sm_group_keyword", "GROUP"))
         if not self.is_dual_mode_enabled:
             self.slaveSystem.setDisabled(True)
             self.sm_burst_options.setEnabled(True)
             self.director.set_dual_mode(False)
-
 
         # Set initial parameters for Director
         self.set_params()
@@ -85,6 +88,9 @@ class Saas(Ui_MainWindow):
         self.object_name.editingFinished.connect(self.set_params)
         self.ar.editingFinished.connect(self.set_params)
         self.dec.editingFinished.connect(self.set_params)
+        self.sm_group_every.valueChanged.connect(self.set_params)
+        self.sm_group_delay.valueChanged.connect(self.set_params)
+        self.sm_group_keyword.editingFinished.connect(self.set_params)
 
         # Connect start
         self.start.clicked.connect(self.start_click)
@@ -146,7 +152,6 @@ class Saas(Ui_MainWindow):
             # Sigle mode
             self.director.set_sm_group_every(self.sm_group_every.value())
             self.director.set_sm_group_delay(self.sm_group_delay.value())
-
 
         self.director.set_dither_per_exposures(int(self.dither_every.value()))  # Dither each frame in master node, system will calculate needed data for slave
 
@@ -247,6 +252,20 @@ class Saas(Ui_MainWindow):
         self.options.set("master_single_exposure", self.master_single_exposure.value())
         self.options.set("slave_single_exposure", self.slave_single_exposure.value())
         self.options.set("dither_every", self.dither_every.value())
+
+        # Single mode
+        if not self.is_dual_mode_enabled:
+            self.options.set("dual_mode", False)
+            self.options.set("sm_group_every", self.sm_group_every.value())
+            self.options.set("sm_group_delay", self.sm_group_delay.value())
+            self.options.set("sm_group_keyword", self.sm_group_keyword.text())
+            self.director.set_dual_mode(False)
+            self.director.set_sm_group_every(self.sm_group_every.value())
+            self.director.set_sm_group_delay(self.sm_group_delay.value())
+            self.director.set_sm_group_keyword(self.sm_group_keyword.text())
+        else: # Dual mode
+            self.director.set_dual_mode(True)
+            self.options.set("dual_mode", True)
 
         # Update class
         self.director.calculate_params()
