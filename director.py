@@ -8,13 +8,15 @@
 # Licence GPL v3
 ############################################################
 
-from Commands import Commands
+from commands import Commands
 import time
+
+from logger import Logger
 
 
 class Director:
 
-    def __init__(self, dual_mode=True):
+    def __init__(self, logger, dual_mode=True):
         print("Creating new director engine...")
         self.dual_mode=dual_mode
         self.master_host = "localhost"
@@ -43,6 +45,9 @@ class Director:
         self.sm_group_every = 1
         self.sm_group_delay = 0
         self.sm_group_keyword = "GROUP"
+
+        # Logger
+        self.logger = logger
 
     def set_sm_group_every(self, group_every):
         self.sm_group_every = group_every
@@ -111,7 +116,7 @@ class Director:
     def calculate_params(self):
         if self.dual_mode:
             self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
-            self.master_burst = self.master_number_of_exposures / self.dither_per_exposures
+            self.master_burst = round(self.master_number_of_exposures / self.dither_per_exposures)
             print("Master burst: " + str(self.master_burst))
             print("Master dither every: " + str(self.dither_per_exposures))
             print("Total master exposures: " + str(self.master_number_of_exposures))
@@ -124,13 +129,15 @@ class Director:
         else:
             self.master_number_of_exposures = round(self.integration_time / self.master_single_exposure_time)
             print("Total master exposures: " + str(self.master_number_of_exposures))
-            self.master_burst = self.master_number_of_exposures / self.sm_group_every
+            self.master_burst = round(self.master_number_of_exposures / self.sm_group_every)
             print("Master burst: " + str(self.master_burst))
+            self.logger.send_message("Exposures: " + str(self.master_number_of_exposures) + "\nGroups: " + str(self.master_burst))
 
     def start_seq(self):
         # Wait if sleewing
         while self.master.is_slewing():
             print("Waiting for the end slew...")
+            self.logger.send_message("Master is slewing, waiting...")
             time.sleep(self.master_single_exposure_time)
 
         # Aditional waiting time
@@ -154,8 +161,10 @@ class Director:
             # Wait till master burst is finished
             while self.master.is_capturing():
                 print("Waiting for the end of current master burst")
+                self.logger.send_message("Capturing images: burst " + str(i+1) + " of " + str(self.master_burst))
                 time.sleep(self.master_single_exposure_time)
 
+            self.logger.send_message("Waiting " + str(self.sm_group_delay) + " seconds till next burst")
             time.sleep(self.sm_group_delay)
 
     def start_dual_mode_seq(self):

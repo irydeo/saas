@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>SequenceOptions</class>
+ <widget class="QDialog" name="SequenceOptions">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>457</width>
-    <height>268</height>
+    <height>293</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>110</x>
-     <y>230</y>
+     <y>250</y>
      <width>341</width>
      <height>32</height>
     </rect>
@@ -35,7 +35,7 @@
      <x>10</x>
      <y>10</y>
      <width>441</width>
-     <height>211</height>
+     <height>231</height>
     </rect>
    </property>
    <property name="title">
@@ -166,6 +166,45 @@
      <string>Run command</string>
     </property>
    </widget>
+   <widget class="QCheckBox" name="autofocus_slave_6">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>150</y>
+      <width>371</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Capture calibration frames at the end</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="autofocus_slave_7">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>170</y>
+      <width>371</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>User filter</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="autofocus_slave_8">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>190</y>
+      <width>371</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Close shuter before </string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>
@@ -173,7 +212,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>SequenceOptions</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -189,7 +228,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>Dialog</receiver>
+   <receiver>SequenceOptions</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

@@ -3,3 +3,5 @@ requests
 easysettings
 pathlib
 astropy
+astroquery>=0.4.2.dev0
+lxml

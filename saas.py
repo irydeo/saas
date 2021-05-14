@@ -12,18 +12,20 @@ import sys
 import time
 
 import requests
-from PyQt5 import QtCore, QtGui, QtWidgets
-from PyQt5.QtWidgets import QMessageBox, QLabel
+from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from PyQt5.Qt import Qt
 from PyQt5.QtGui import QImage, QPixmap
 from ui.main_ui import Ui_MainWindow
-from Director import Director
-from Profile import Profile
-from Options import Options
+from ui.master_advanced_options import Ui_MasterAdvancedOptions
+from ui.slave_advanced_options import Ui_SlaveAdvancedOptions
+from ui.sequence_options_ui import Ui_SequenceOptions
+from object_selector import ObjectSelector
+from director import Director
+from profile import Profile
+from options import Options
+from logger import Logger
 import threading
-
-from PyQt5.QtCore import QObject, QThread, pyqtSignal
-
 
 class Saas(Ui_MainWindow):
     
@@ -39,8 +41,12 @@ class Saas(Ui_MainWindow):
         self.seq_thread = None
         self.update_ui_thread = None
         self.profiles = Profile()
-        self.director = Director()
         self.options = Options()
+
+        # Logger and Director
+        self.logger = Logger()
+        self.logger.log_signal.connect(self.update_from_signal)
+        self.director = Director(self.logger)
 
         # Load profiles
         self.master_profile.addItems(self.profiles.get_list())
@@ -52,8 +58,8 @@ class Saas(Ui_MainWindow):
         self.dec.setText(self.options.get("dec", "Enter DEC dd:mm:ss"))
         self.master_profile.setCurrentText(self.options.get("master_profile", "None"))
         self.slave_profile.setCurrentText(self.options.get("slave_profile", "None"))
-        self.master_port.setText(self.options.get("master_port", 3277))
-        self.slave_port.setText(self.options.get("slave_port", 9999))
+        #self.master_port.setText(self.options.get("master_port", 3277))
+        #self.slave_port.setText(self.options.get("slave_port", 9999))
         self.integration_time.setValue(int(self.options.get("integration_time", 300)))
         self.master_bin.setValue(int(self.options.get("master_bin", 1)))
         self.slave_bin.setValue(int(self.options.get("slave_bin", 1)))
@@ -64,13 +70,13 @@ class Saas(Ui_MainWindow):
         self.is_dual_mode_enabled = bool(self.options.get("dual_mode", True))
         self.actionDual_mode.setChecked(self.is_dual_mode_enabled)
 
-        self.sm_group_every.setValue(self.options.get("sm_group_every", 1))
-        self.sm_group_delay.setValue(self.options.get("sm_group_delay", 1))
-        self.sm_group_keyword.setText(self.options.get("sm_group_keyword", "GROUP"))
         if not self.is_dual_mode_enabled:
             self.slaveSystem.setDisabled(True)
-            self.sm_burst_options.setEnabled(True)
+            #self.sm_burst_options.setEnabled(True)
             self.director.set_dual_mode(False)
+            self.statusbar.showMessage("Single mode")
+        else:
+            self.statusbar.showMessage("Dual mode")
 
         # Set initial parameters for Director
         self.set_params()
@@ -88,9 +94,14 @@ class Saas(Ui_MainWindow):
         self.object_name.editingFinished.connect(self.set_params)
         self.ar.editingFinished.connect(self.set_params)
         self.dec.editingFinished.connect(self.set_params)
-        self.sm_group_every.valueChanged.connect(self.set_params)
-        self.sm_group_delay.valueChanged.connect(self.set_params)
-        self.sm_group_keyword.editingFinished.connect(self.set_params)
+
+        # Dialogs
+        self.master_adv_options.clicked.connect(self.show_master_adv_options)
+        self.slave_adv_options.clicked.connect(self.show_slave_adv_options)
+        self.actionSequence_options.triggered.connect(self.show_sequence_adv_options)
+        self.actionExit.triggered.connect(self.close_app)
+        self.actionAbout_SaaS.triggered.connect(self.show_about_saas)
+        self.open_object_selector.clicked.connect(self.show_object_selector)
 
         # Connect start
         self.start.clicked.connect(self.start_click)
@@ -99,7 +110,106 @@ class Saas(Ui_MainWindow):
         self.stop.clicked.connect(self.stop_click)
         self.stop.setDisabled(bool(1))
 
+        # TODO: delete and replace by new signal/slot systems
         self.log.setText("Master status: " + str(self.director.current_master_exposures) + " of " + str(self.director.master_number_of_exposures))
+
+    ##################
+    ## Master advanced options
+    ##################
+    def show_master_adv_options(self):
+        dialog = QtWidgets.QDialog()
+        dialog.ui = Ui_MasterAdvancedOptions()
+        dialog.ui.setupUi(dialog)
+        dialog.ui.sm_group_every.setValue(int(self.options.get("sm_group_every", 1)))
+        dialog.ui.sm_group_delay.setValue(self.options.get("sm_group_delay", 1))
+        dialog.ui.sm_group_keyword.setText(self.options.get("sm_group_keyword", "GROUP"))
+        dialog.ui.master_host.setText(self.options.get("master_host", "localhost"))
+        dialog.ui.master_port.setText(self.options.get("master_port", "3277"))
+        r = dialog.exec_()
+        dialog.show()
+        if r:
+            print("OK, saving...")
+            self.options.set("sm_group_every", dialog.ui.sm_group_every.value())
+            self.options.set("sm_group_keyword", dialog.ui.sm_group_keyword.text())
+            self.options.set("master_host", dialog.ui.master_host.text())
+            self.options.set("master_port", dialog.ui.master_port.text())
+            self.options.set("sm_group_delay", dialog.ui.sm_group_delay.value())
+            self.config_director()
+        else:
+            print("Cancel")
+
+    ##################
+    ## Master advanced options
+    ##################
+    def show_slave_adv_options(self):
+        dialog = QtWidgets.QDialog()
+        dialog.ui = Ui_SlaveAdvancedOptions()
+        dialog.ui.setupUi(dialog)
+        dialog.ui.slave_host.setText(self.options.get("slave_host", "localhost"))
+        dialog.ui.slave_port.setText(self.options.get("slave_port", "3278"))
+        r = dialog.exec_()
+        dialog.show()
+        if r:
+            print("OK, saving...")
+            self.options.set("slave_host", dialog.ui.slave_host.text())
+            self.options.set("slave_port", dialog.ui.slave_port.text())
+            self.config_director()
+        else:
+            print("Cancel")
+
+    ##################
+    ## Sequence options
+    ##################
+    def show_sequence_adv_options(self):
+        dialog = QtWidgets.QDialog()
+        dialog.ui = Ui_SequenceOptions()
+        dialog.ui.setupUi(dialog)
+        r = dialog.exec_()
+        dialog.show()
+        # TODO: Save options
+        if r:
+            print("OK")
+        else:
+            print("Cancel")
+
+    def show_object_selector(self):
+        dialog = QtWidgets.QDialog()
+        dialog.ui = ObjectSelector(dialog, self.options)
+        r = dialog.exec_()
+
+        # TODO: Save options
+        if r:
+            print("OK")
+            self.object_name.setText(self.options.get("object_name", "0"))
+            self.ar.setText(self.options.get("ar", "0"))
+            self.dec.setText(self.options.get("dec", "0"))
+        else:
+            print("Cancel")
+
+    ##################
+    ## About SaaS
+    ##################
+    def show_about_saas(self):
+        QMessageBox.about(self.dialog, "SaaS", "Scientific Astronomy Automation Software pre-Alpha")
+
+    ##################
+    ## Exit SaaS
+    ##################
+    def close_app(self):
+        quit_msg = "Are you sure?"
+        reply = QMessageBox.question(self.dialog, 'Close SaaS',
+                                     quit_msg, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            app.quit()
+
+    ##################
+    ## Receiving a signal to update UI from rest of the system
+    ##################
+    def update_from_signal(self, msg):
+        # Update UI
+        self.log_signal.setText(msg)
+        # TODO: Master/slave diferentiation
+        print("Signal received " + msg)
 
     ##################
     ## Connect menu actions: Dual mode settings
@@ -109,14 +219,20 @@ class Saas(Ui_MainWindow):
         if self.actionDual_mode.isChecked():   # Dual mode is enabled
             self.slaveSystem.setDisabled(False)
             self.options.set("dual_mode", True)
-            self.sm_burst_options.setEnabled(False)
+            #self.sm_burst_options.setEnabled(False)
             self.director.set_dual_mode(True)
+            self.logger.send_message("LOG")
+            self.statusbar.showMessage("Dual mode")
         else:                                   # Single mode
             self.slaveSystem.setDisabled(True)
             self.options.set("dual_mode", False)
-            self.sm_burst_options.setEnabled(True)
+            #self.sm_burst_options.setEnabled(True)
             self.director.set_dual_mode(False)
+            self.statusbar.showMessage("Single mode")
 
+    ##################
+    ## Load latest captured image in each node
+    ##################
     def load_latest_image(self, node):
         image = QImage()
         if node=="master":
@@ -132,64 +248,74 @@ class Saas(Ui_MainWindow):
         self.master_image.show()
 
 
-
     ##################
     ## Let's go
     ##################
     def start_click(self):
-        self.director.set_node("master", self.master_host.text(), self.master_port.text())
-        self.director.set_integration_time(int(self.integration_time.value()))  # Set total integration time in seconds
-        self.director.set_single_exposure_time("master", int(self.master_single_exposure.value()))  # Master exposures are 120s
-        self.director.set_binning("master", int(self.master_bin.value()))
-        self.director.set_frame_type("Light")
+        try:
+            # TODO: Read from config and not from UI directly
+            #-- self.director.set_node("master", self.master_host.text(), self.master_port.text())
+            self.director.set_node("master", self.options.get("master_host", "localhost"), self.options.get("master_port", "3277"))
 
-        if self.is_dual_mode_enabled:
-            self.director.set_node("slave", self.slave_host.text(), self.slave_port.text())
-            self.director.set_single_exposure_time("slave",
-                                                   int(self.slave_single_exposure.value()))  # Master exposures are 120s
-            self.director.set_binning("slave", int(self.slave_bin.value()))
-        else:
-            # Sigle mode
-            self.director.set_sm_group_every(self.sm_group_every.value())
-            self.director.set_sm_group_delay(self.sm_group_delay.value())
+            self.director.set_integration_time(int(self.integration_time.value()))  # Set total integration time in seconds
+            self.director.set_single_exposure_time("master", int(self.master_single_exposure.value()))  # Master exposures are 120s
+            self.director.set_binning("master", int(self.master_bin.value()))
+            self.director.set_frame_type("Light")
 
-        self.director.set_dither_per_exposures(int(self.dither_every.value()))  # Dither each frame in master node, system will calculate needed data for slave
+            if self.is_dual_mode_enabled:
+                self.director.set_node("slave", self.options.get("slave_host", "localhost"), self.options.get("slave_port", "3278"))
+                self.director.set_single_exposure_time("slave",
+                                                       int(self.slave_single_exposure.value()))  # Master exposures are 120s
+                self.director.set_binning("slave", int(self.slave_bin.value()))
+            else:
+                # Sigle mode
+                self.director.set_sm_group_every(self.options.get("sm_group_every", 10))
+                self.director.set_sm_group_delay(self.options.get("sm_group_delay", 10))
+                self.director.set_sm_group_keyword(self.options.get("sm_group_keyword", 10))
 
-        # Rest of exposure data:
-        self.director.set_object_name(self.object_name.text())  # it will be master_myObject and slave_myObject
+            self.director.set_dither_per_exposures(int(self.dither_every.value()))  # Dither each frame in master node, system will calculate needed data for slave
 
-        self.director.slew(self.ar.text(), self.dec.text())
-        # self.director.sync()
-        self.director.autofocus("master")
+            # Rest of exposure data:
+            self.director.set_object_name(self.object_name.text())  # it will be master_myObject and slave_myObject
 
-        if self.is_dual_mode_enabled:
-            self.director.autofocus("slave")
+            self.director.slew(self.ar.text(), self.dec.text())
+            # self.director.sync()
+            self.director.autofocus("master")
 
-        #self.director.start_guiding()
+            if self.is_dual_mode_enabled:
+                self.director.autofocus("slave")
 
-        self.seq_thread = threading.Thread(target= self.director.start_seq)
-        self.seq_thread.start()
+            #self.director.start_guiding()
 
-        self.update_ui_thread = threading.Thread(target=self.update_ui)
-        self.update_ui_thread.start()
-        #self.director.start_seq()  # It will launch each node, stop when needed...
+            self.seq_thread = threading.Thread(target= self.director.start_seq)
+            self.seq_thread.start()
 
-        self.start.setDisabled(bool(1))
-        self.stop.setEnabled(bool(1))
+            self.update_ui_thread = threading.Thread(target=self.update_ui)
+            self.update_ui_thread.start()
+            #self.director.start_seq()  # It will launch each node, stop when needed...
 
+            self.start.setDisabled(bool(1))
+            self.stop.setEnabled(bool(1))
+        except Exception as e:
+            print(str(e))
+            msg = "Error starting sequence: " + str(e)
+            reply = QMessageBox.information(self.dialog, 'Message',
+                                         msg, QMessageBox.Ok)
 
-
+    ##################
+    ## Stop current sequence (To-Do)
+    ##################
     def stop_click(self):
         # Send signals to terminate
         self.start.setEnabled(bool(1))
         self.stop.setDisabled(bool(1))
-        print("")
 
 
     ##################
     ## Master profile is changed
     ##################
     def master_profile_changed(self):
+        # TODO: Read from config and not from UI directly
         try:
             if self.master_profile.currentText() != self.slave_profile.currentText():
                 port = self.profiles.get_port(self.master_profile.currentText())
@@ -214,7 +340,6 @@ class Saas(Ui_MainWindow):
         try:
             if self.master_profile.currentText() != self.slave_profile.currentText():
                 port = self.profiles.get_port(self.slave_profile.currentText())
-                self.slave_port.setText(str(port))
                 self.options.set("slave_profile", self.slave_profile.currentText())
                 self.options.set("slave_port", port)
             else:
@@ -228,20 +353,10 @@ class Saas(Ui_MainWindow):
             reply = QMessageBox.information(self.dialog, 'Message',
                                          quit_msg, QMessageBox.Ok)
 
-    def set_params(self):
-
-        # Profile change
-        self.master_profile.currentIndexChanged.connect(self.master_profile_changed)
-        self.slave_profile.currentIndexChanged.connect(self.slave_profile_changed)
-
-        # Set director parameters
-        self.director.set_integration_time(self.integration_time.value())
-        self.director.set_binning("master", int(self.master_bin.value()))
-        self.director.set_binning("slave", int(self.slave_bin.value()))
-        self.director.set_single_exposure_time("master", int(self.master_single_exposure.value()))
-        self.director.set_single_exposure_time("slave", int(self.slave_single_exposure.value()))
-        self.director.set_dither_per_exposures(int(self.dither_every.value()))
-
+    ##################
+    ## Save selected parameters
+    ##################
+    def save_config(self):
         self.options.set("object_name", self.object_name.text())
         self.options.set("ar", self.ar.text())
         self.options.set("dec", self.dec.text())
@@ -256,25 +371,56 @@ class Saas(Ui_MainWindow):
         # Single mode
         if not self.is_dual_mode_enabled:
             self.options.set("dual_mode", False)
-            self.options.set("sm_group_every", self.sm_group_every.value())
-            self.options.set("sm_group_delay", self.sm_group_delay.value())
-            self.options.set("sm_group_keyword", self.sm_group_keyword.text())
-            self.director.set_dual_mode(False)
-            self.director.set_sm_group_every(self.sm_group_every.value())
-            self.director.set_sm_group_delay(self.sm_group_delay.value())
-            self.director.set_sm_group_keyword(self.sm_group_keyword.text())
-        else: # Dual mode
-            self.director.set_dual_mode(True)
+        else:  # Dual mode
             self.options.set("dual_mode", True)
+
+    ##################
+    ## Lets configure our sequence director
+    ##################
+    def config_director(self):
+        # Profile change
+        self.master_profile.currentIndexChanged.connect(self.master_profile_changed)
+        self.slave_profile.currentIndexChanged.connect(self.slave_profile_changed)
+
+        # Set director parameters
+        self.director.set_integration_time(self.options.get("integration_time", 1))
+        self.director.set_binning("master", int(self.options.get("master_bin", 1)))
+        self.director.set_binning("slave", int(self.options.get("slave_bin", 1)))
+        self.director.set_single_exposure_time("master", int(self.options.get("master_single_exposure", 10)))
+        self.director.set_single_exposure_time("slave", int(self.options.get("slave_single_exposure", 10)))
+        self.director.set_dither_per_exposures(int(self.options.get("dither_every", 30)))
+
+        # Single mode
+        if not self.is_dual_mode_enabled:
+            self.director.set_dual_mode(False)
+            self.director.set_sm_group_every(self.options.get("sm_group_every", 10))
+            self.director.set_sm_group_delay(self.options.get("sm_group_delay", 10))
+            self.director.set_sm_group_keyword(self.options.get("sm_group_keyword", 10))
+            self.statusbar.showMessage("Single mode")
+        else:  # Dual mode
+            self.director.set_dual_mode(True)
+            self.statusbar.showMessage("Dual mode")
 
         # Update class
         self.director.calculate_params()
 
+
+    ##################
+    ## Live change / save selected parameters
+    ##################
+    def set_params(self):
+        self.save_config()
+        self.config_director()
         # Update UI
         self.log.setText("Master status: " + str(self.director.current_master_exposures) + " of " + str(
             self.director.master_number_of_exposures))
 
+
+    ##################
+    ## System to update UI (to be replaced by a signal/slots system)
+    ##################
     def update_ui(self):
+        # TODO: Replace by signal/slots
         # Update UI
         while(1):
             print("Calling update")

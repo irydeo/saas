@@ -11,17 +11,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Dialog(object):
-    def setupUi(self, Dialog):
-        Dialog.setObjectName("Dialog")
-        Dialog.resize(457, 268)
-        self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
-        self.buttonBox.setGeometry(QtCore.QRect(110, 230, 341, 32))
+class Ui_SequenceOptions(object):
+    def setupUi(self, SequenceOptions):
+        SequenceOptions.setObjectName("SequenceOptions")
+        SequenceOptions.resize(457, 293)
+        self.buttonBox = QtWidgets.QDialogButtonBox(SequenceOptions)
+        self.buttonBox.setGeometry(QtCore.QRect(110, 250, 341, 32))
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
-        self.slaveSystem_2 = QtWidgets.QGroupBox(Dialog)
-        self.slaveSystem_2.setGeometry(QtCore.QRect(10, 10, 441, 211))
+        self.slaveSystem_2 = QtWidgets.QGroupBox(SequenceOptions)
+        self.slaveSystem_2.setGeometry(QtCore.QRect(10, 10, 441, 231))
         self.slaveSystem_2.setTitle("")
         self.slaveSystem_2.setObjectName("slaveSystem_2")
         self.label_7 = QtWidgets.QLabel(self.slaveSystem_2)
@@ -55,31 +55,43 @@ class Ui_Dialog(object):
         self.autofocus_slave_5 = QtWidgets.QCheckBox(self.slaveSystem_2)
         self.autofocus_slave_5.setGeometry(QtCore.QRect(230, 120, 171, 22))
         self.autofocus_slave_5.setObjectName("autofocus_slave_5")
+        self.autofocus_slave_6 = QtWidgets.QCheckBox(self.slaveSystem_2)
+        self.autofocus_slave_6.setGeometry(QtCore.QRect(40, 150, 371, 22))
+        self.autofocus_slave_6.setObjectName("autofocus_slave_6")
+        self.autofocus_slave_7 = QtWidgets.QCheckBox(self.slaveSystem_2)
+        self.autofocus_slave_7.setGeometry(QtCore.QRect(80, 170, 371, 22))
+        self.autofocus_slave_7.setObjectName("autofocus_slave_7")
+        self.autofocus_slave_8 = QtWidgets.QCheckBox(self.slaveSystem_2)
+        self.autofocus_slave_8.setGeometry(QtCore.QRect(80, 190, 371, 22))
+        self.autofocus_slave_8.setObjectName("autofocus_slave_8")
 
-        self.retranslateUi(Dialog)
-        self.buttonBox.accepted.connect(Dialog.accept)
-        self.buttonBox.rejected.connect(Dialog.reject)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        self.retranslateUi(SequenceOptions)
+        self.buttonBox.accepted.connect(SequenceOptions.accept)
+        self.buttonBox.rejected.connect(SequenceOptions.reject)
+        QtCore.QMetaObject.connectSlotsByName(SequenceOptions)
 
-    def retranslateUi(self, Dialog):
+    def retranslateUi(self, SequenceOptions):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label_7.setText(_translate("Dialog", "General Options"))
-        self.autofocus_master.setText(_translate("Dialog", "Autofocus master"))
-        self.use_autoguiding_slave.setText(_translate("Dialog", "Autoguide from slave"))
-        self.autofocus_slave.setText(_translate("Dialog", "Autofocus slave"))
-        self.use_autoguiding_master.setText(_translate("Dialog", "Autoguide from master"))
-        self.autofocus_slave_2.setText(_translate("Dialog", "Autoconnect devices"))
-        self.autofocus_slave_3.setText(_translate("Dialog", "Warm camera"))
-        self.autofocus_slave_4.setText(_translate("Dialog", "Close shuter"))
-        self.autofocus_slave_5.setText(_translate("Dialog", "Run command"))
+        SequenceOptions.setWindowTitle(_translate("SequenceOptions", "Dialog"))
+        self.label_7.setText(_translate("SequenceOptions", "General Options"))
+        self.autofocus_master.setText(_translate("SequenceOptions", "Autofocus master"))
+        self.use_autoguiding_slave.setText(_translate("SequenceOptions", "Autoguide from slave"))
+        self.autofocus_slave.setText(_translate("SequenceOptions", "Autofocus slave"))
+        self.use_autoguiding_master.setText(_translate("SequenceOptions", "Autoguide from master"))
+        self.autofocus_slave_2.setText(_translate("SequenceOptions", "Autoconnect devices"))
+        self.autofocus_slave_3.setText(_translate("SequenceOptions", "Warm camera"))
+        self.autofocus_slave_4.setText(_translate("SequenceOptions", "Close shuter"))
+        self.autofocus_slave_5.setText(_translate("SequenceOptions", "Run command"))
+        self.autofocus_slave_6.setText(_translate("SequenceOptions", "Capture calibration frames at the end"))
+        self.autofocus_slave_7.setText(_translate("SequenceOptions", "User filter"))
+        self.autofocus_slave_8.setText(_translate("SequenceOptions", "Close shuter before "))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Dialog = QtWidgets.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
+    SequenceOptions = QtWidgets.QDialog()
+    ui = Ui_SequenceOptions()
+    ui.setupUi(SequenceOptions)
+    SequenceOptions.show()
     sys.exit(app.exec_())

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>942</width>
-    <height>699</height>
+    <height>814</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -32,7 +32,7 @@
       <x>0</x>
       <y>80</y>
       <width>470</width>
-      <height>521</height>
+      <height>641</height>
      </rect>
     </property>
     <property name="title">
@@ -58,7 +58,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>72</y>
+       <y>78</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -91,7 +91,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>102</y>
+       <y>110</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -104,7 +104,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>72</y>
+       <y>78</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -157,7 +157,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>102</y>
+       <y>110</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -190,7 +190,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>132</y>
+       <y>142</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -203,7 +203,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>132</y>
+       <y>142</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -236,7 +236,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>162</y>
+       <y>172</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -249,7 +249,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>162</y>
+       <y>172</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -282,7 +282,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>260</y>
+       <y>250</y>
        <width>455</width>
        <height>250</height>
       </rect>
@@ -301,7 +301,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>210</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -320,7 +320,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>240</y>
+       <y>230</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -381,7 +381,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>140</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -402,7 +402,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>120</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -421,7 +421,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>170</y>
+       <y>160</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -434,7 +434,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>170</y>
+       <y>160</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -465,9 +465,9 @@
     <widget class="QLabel" name="log">
      <property name="geometry">
       <rect>
-       <x>19</x>
-       <y>260</y>
-       <width>441</width>
+       <x>12</x>
+       <y>460</y>
+       <width>450</width>
        <height>41</height>
       </rect>
      </property>
@@ -479,21 +479,21 @@ color: rgb(0, 255, 0);</string>
       <string>Image info overlayed</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="log_signal">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>466</y>
+       <y>510</y>
        <width>450</width>
        <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0, 0.2);
-color: rgb(255, 0, 0);</string>
+      <string notr="true">background-color: rgba(0, 0, 0, 0.9);
+color: rgb(0, 255, 0);</string>
      </property>
      <property name="text">
       <string>Image info overlayed</string>
@@ -737,17 +737,17 @@ border: none</string>
       <string>DEC</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="open_object_selector">
+    <widget class="QPushButton" name="get_coords">
      <property name="geometry">
       <rect>
-       <x>520</x>
+       <x>530</x>
        <y>40</y>
-       <width>121</width>
+       <width>101</width>
        <height>34</height>
       </rect>
      </property>
      <property name="text">
-      <string>Object Manager</string>
+      <string>Get</string>
      </property>
     </widget>
     <widget class="Line" name="line_35">
@@ -799,7 +799,7 @@ border: none</string>
       <x>470</x>
       <y>80</y>
       <width>470</width>
-      <height>521</height>
+      <height>641</height>
      </rect>
     </property>
     <property name="title">
@@ -810,7 +810,7 @@ border: none</string>
       <rect>
        <x>10</x>
        <y>82</y>
-       <width>161</width>
+       <width>211</width>
        <height>32</height>
       </rect>
      </property>
@@ -895,6 +895,74 @@ border: none</string>
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
+    <widget class="QLineEdit" name="slave_host">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>142</y>
+       <width>101</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>localhost</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="slave_port">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>142</y>
+       <width>101</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3277</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_173">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>122</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Server</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_174">
+     <property name="geometry">
+      <rect>
+       <x>120</x>
+       <y>122</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Port</string>
+     </property>
+    </widget>
     <widget class="QSpinBox" name="slave_single_exposure">
      <property name="geometry">
       <rect>
@@ -965,7 +1033,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>260</y>
+       <y>330</y>
        <width>455</width>
        <height>250</height>
       </rect>
@@ -984,7 +1052,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>240</y>
+       <y>310</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -1005,7 +1073,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>220</y>
+       <y>290</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -1017,7 +1085,7 @@ border: none</string>
       </font>
      </property>
      <property name="text">
-      <string>Slave status</string>
+      <string>Latest image from slave</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_170">
@@ -1064,7 +1132,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>130</y>
+       <y>190</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -1085,8 +1153,8 @@ border: none</string>
      </property>
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>170</y>
+       <x>120</x>
+       <y>230</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -1099,7 +1167,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>150</y>
+       <y>210</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -1178,7 +1246,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>470</y>
+       <y>585</y>
        <width>455</width>
        <height>41</height>
       </rect>
@@ -1194,25 +1262,238 @@ color: rgb(0, 255, 0);</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="slave_adv_options">
+    <widget class="QLabel" name="label_166">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>80</y>
-       <width>41</width>
-       <height>34</height>
+       <x>350</x>
+       <y>200</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Port</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_165">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>200</y>
+       <width>81</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Server</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="master_host">
+     <property name="geometry">
+      <rect>
+       <x>240</x>
+       <y>220</y>
+       <width>101</width>
+       <height>32</height>
       </rect>
      </property>
      <property name="text">
-      <string>...</string>
+      <string>localhost</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="master_port">
+     <property name="geometry">
+      <rect>
+       <x>350</x>
+       <y>220</y>
+       <width>101</width>
+       <height>32</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>3277</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+    <widget class="QGroupBox" name="sm_burst_options">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="geometry">
+      <rect>
+       <x>230</x>
+       <y>260</y>
+       <width>221</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <property name="flat">
+      <bool>true</bool>
+     </property>
+     <widget class="QLabel" name="fo_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>10</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Group every:</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sm_group_every">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>10</y>
+        <width>71</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="toolTip">
+       <string>Group every selected number of frames</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="sm_group_delay">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>40</y>
+        <width>71</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::ActionsContextMenu</enum>
+      </property>
+      <property name="toolTip">
+       <string>Delay between groups</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+      <property name="minimum">
+       <number>0</number>
+      </property>
+      <property name="maximum">
+       <number>100</number>
+      </property>
+      <property name="value">
+       <number>1</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fo_5">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>40</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Grouping delay:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="sm_group_keyword">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>80</y>
+        <width>71</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>GROUP</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLabel" name="fo_6">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>80</y>
+        <width>131</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Grouping keyword:</string>
+      </property>
+     </widget>
     </widget>
    </widget>
    <widget class="QPushButton" name="start">
     <property name="geometry">
      <rect>
       <x>806</x>
-      <y>610</y>
+      <y>725</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -1232,7 +1513,7 @@ color: rgb(0, 255, 0);</string>
     <property name="geometry">
      <rect>
       <x>668</x>
-      <y>610</y>
+      <y>725</y>
       <width>131</width>
       <height>31</height>
      </rect>
@@ -1295,7 +1576,7 @@ color: rgb(0, 255, 0);</string>
   </action>
   <action name="actionSequence_options">
    <property name="text">
-    <string>&amp;Sequence</string>
+    <string>&amp;Sequence options</string>
    </property>
   </action>
   <action name="actionDual_mode">
