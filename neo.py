@@ -11,7 +11,7 @@
 #
 ############################################################
 from astroquery.mpc import MPC
-from datetime import datetime
+import datetime
 from pprint import pprint
 import erfa
 import urllib
@@ -27,6 +27,7 @@ class NEO:
         self.lon = -3
         self.height = 631
         self.utcoffset = 0
+        self.q_time = datetime.datetime.now()
 
     # Set user coords to correctly calculate sn visibility when requested
     # @args:
@@ -40,6 +41,9 @@ class NEO:
         self.height = height
         self.utcoffset = utcoffset
 
+    def set_time(self, q_time):
+        self.q_time = q_time
+
     # Read priority list from https://neo.ssa.esa.int/ PSDB-portlet/download?file=esa_priority_neo_list
     # @args:
     #   none
@@ -52,7 +56,7 @@ class NEO:
     #   2. start_p - datetime (2021-05-12 22:00:00)
     #   3. step_p - string (steps in m, s, h, d...)
     #   4. number_p - string (number of calculated ephemerids)
-    def update(self, location_p='Z41', start_p=datetime.now(), step_p='1h', number_p=1):
+    def update(self, location_p='Z41', step_p='1h', number_p=1):
         try:
             conn = sqlite3.connect(self.db)
             c = conn.cursor()
@@ -67,24 +71,26 @@ class NEO:
                         prio = line[0:2]
                         name = line[3:16]
                         name = name.replace("\"", "")
-                        ra = (float(line[17:25].strip()) / 60) / 60  # From seg to hours
-                        dec = line[26:31].strip()
+                        #ra = (float(line[17:25].strip()) / 60) / 60  # From seg to hours
+                        #dec = line[26:31].strip()
                         elong = line[32:35]
                         m = line[36:40]
                         date = line[48:60]
                         date = date.replace("\"", "")
 
                         #eph = MPC.get_ephemeris(name, location='Z41', start='2021-05-12 22:00:00', step='1h', number=1)
-                        eph = MPC.get_ephemeris(name, location=location_p, start=start_p, step=step_p,
-                                                number=number_p)
+                        eph = MPC.get_ephemeris(name, location=location_p, start=self.q_time, step=step_p,
+                                                number=number_p, ra_format={'sep': ':', 'unit': 'hourangle', 'precision': 1}, dec_format={'sep': ':', 'precision': 0})
                         altitude = eph['Altitude'].max()
-                        motion = eph['Proper motion'].max()
+                        motion = eph['Proper motion'].max() / 60 # arcsec/min
                         mag = eph['V'].max()
+                        ra = str(eph['RA'][0])
+                        dec = str(eph['Dec'][0])
 
                         # TODO: Calculate rating
                         c.execute(
                             "INSERT OR IGNORE INTO neo (name, prio, ra, dec, m, elong, date, alt, motion, mag)  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                            (name.strip(), prio, ra, dec, m, elong, date, float(altitude), float(motion), float(mag)))
+                            (name.strip(), prio, ra, dec, m, elong, date, float(altitude), motion, float(mag)))
                         # select prio, name, max_alt, mag, motion from neo WHERE alt > 40 and mag < 20;
         except ValueError:
             print("ValueError")
@@ -99,4 +105,23 @@ class NEO:
         # We can also close the connection if we are done with it.
         # Just be sure any changes have been committed or they will be lost.
         conn.close()
+
+    def get_current_ardec(self, name, location_p='Z41', step_p='1s', number_p=1):
+        eph = MPC.get_ephemeris(name, location=location_p, start=self.q_time, step=step_p,
+                                number=number_p, ra_format={'sep': ':', 'unit': 'hourangle', 'precision': 1},
+                                dec_format={'sep': ':', 'precision': 0})
+
+        result = []
+        result.append(str(eph['RA'][0]))
+        result.append(str(eph['Dec'][0]))
+        return result
+
+    def get_current_altitude(self, name, location_p='Z41', step_p='1s', number_p=1):
+        eph = MPC.get_ephemeris(name, location=location_p, start=self.q_time, step=step_p,
+                                number=number_p, ra_format={'sep': ':', 'unit': 'hourangle', 'precision': 1},
+                                dec_format={'sep': ':', 'precision': 0})
+
+        return eph['Altitude'][0]
+
+
 

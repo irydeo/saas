@@ -19,7 +19,8 @@ from PyQt5.QtGui import QImage, QPixmap
 from ui.main_ui import Ui_MainWindow
 from ui.master_advanced_options import Ui_MasterAdvancedOptions
 from ui.slave_advanced_options import Ui_SlaveAdvancedOptions
-from ui.sequence_options_ui import Ui_SequenceOptions
+from ui.saas_options_ui import Ui_SaaSOptions
+from saas_options import SaasOptions
 from object_selector import ObjectSelector
 from director import Director
 from profile import Profile
@@ -51,6 +52,7 @@ class Saas(Ui_MainWindow):
         # Load profiles
         self.master_profile.addItems(self.profiles.get_list())
         self.slave_profile.addItems(self.profiles.get_list())
+
 
         # Set correct option
         self.object_name.setText(self.options.get("object_name", "Object name"))
@@ -95,6 +97,11 @@ class Saas(Ui_MainWindow):
         self.ar.editingFinished.connect(self.set_params)
         self.dec.editingFinished.connect(self.set_params)
 
+        # Master basic controls (Slew / Sync / Focus)
+        self.master_slew.clicked.connect(self.slew_telescope)
+        self.master_sync.clicked.connect(self.sync_telescope)
+        self.master_focus.clicked.connect(self.focus_master_telescope)
+
         # Dialogs
         self.master_adv_options.clicked.connect(self.show_master_adv_options)
         self.slave_adv_options.clicked.connect(self.show_slave_adv_options)
@@ -112,6 +119,30 @@ class Saas(Ui_MainWindow):
 
         # TODO: delete and replace by new signal/slot systems
         self.log.setText("Master status: " + str(self.director.current_master_exposures) + " of " + str(self.director.master_number_of_exposures))
+
+    ##################
+    ## Slew telescope to given coords
+    ##################
+    def slew_telescope(self):
+        self.director.set_node("master", self.options.get("master_host", "localhost"),
+                               self.options.get("master_port", "3277"))
+        self.director.slew(self.ar.text(), self.dec.text())
+
+    ##################
+    ## Solve and sync mount
+    ##################
+    def sync_telescope(self):
+        self.director.set_node("master", self.options.get("master_host", "localhost"),
+                               self.options.get("master_port", "3277"))
+        self.director.sync()
+
+    ##################
+    ## Autofocus master telescope
+    ##################
+    def focus_master_telescope(self):
+        self.director.set_node("master", self.options.get("master_host", "localhost"),
+                                   self.options.get("master_port", "3277"))
+        self.director.autofocus("master")
 
     ##################
     ## Master advanced options
@@ -162,16 +193,18 @@ class Saas(Ui_MainWindow):
     ##################
     def show_sequence_adv_options(self):
         dialog = QtWidgets.QDialog()
-        dialog.ui = Ui_SequenceOptions()
-        dialog.ui.setupUi(dialog)
+        dialog.ui = SaasOptions(dialog, self.options)
         r = dialog.exec_()
-        dialog.show()
         # TODO: Save options
         if r:
-            print("OK")
+            print("Saving")
+            dialog.ui.save_options()
         else:
             print("Cancel")
 
+    ##################
+    ## Object manager and selector
+    ##################
     def show_object_selector(self):
         dialog = QtWidgets.QDialog()
         dialog.ui = ObjectSelector(dialog, self.options)
@@ -183,6 +216,9 @@ class Saas(Ui_MainWindow):
             self.object_name.setText(self.options.get("object_name", "0"))
             self.ar.setText(self.options.get("ar", "0"))
             self.dec.setText(self.options.get("dec", "0"))
+            self.master_single_exposure.setValue(self.options.get("master_single_exposure", "0"))
+            self.slave_single_exposure.setValue(self.options.get("slave_single_exposure", "0"))
+            print("VALUE " + str(self.options.get("slave_single_exposure", "0")))
         else:
             print("Cancel")
 
@@ -278,9 +314,12 @@ class Saas(Ui_MainWindow):
             # Rest of exposure data:
             self.director.set_object_name(self.object_name.text())  # it will be master_myObject and slave_myObject
 
-            self.director.slew(self.ar.text(), self.dec.text())
-            # self.director.sync()
-            self.director.autofocus("master")
+            if self.options.get("op_slew", False):
+                self.director.slew(self.ar.text(), self.dec.text())
+                self.director.sync()
+
+            if self.options.get("op_focus", False):
+                self.director.autofocus("master")
 
             if self.is_dual_mode_enabled:
                 self.director.autofocus("slave")
@@ -322,6 +361,9 @@ class Saas(Ui_MainWindow):
                 self.master_port.setText(str(port))
                 self.options.set("master_profile", self.master_profile.currentText())
                 self.options.set("master_port", port)
+
+                # Read all options, but it should be also readed at start!!
+
             else:
                 quit_msg = "Select a different profile. Master and slave can be the same"
                 reply = QMessageBox.information(self.dialog, 'Message',

@@ -62,7 +62,7 @@ class Ui_MasterAdvancedOptions(object):
         self.sm_group_every.setContextMenuPolicy(QtCore.Qt.ActionsContextMenu)
         self.sm_group_every.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
         self.sm_group_every.setMinimum(0)
-        self.sm_group_every.setMaximum(100)
+        self.sm_group_every.setMaximum(720)
         self.sm_group_every.setProperty("value", 1)
         self.sm_group_every.setObjectName("sm_group_every")
         self.sm_group_delay = QtWidgets.QSpinBox(self.sm_burst_options)

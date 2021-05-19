@@ -34,6 +34,7 @@ class Supernova:
         self.lon=-3
         self.height=631
         self.utcoffset=0
+        self.q_time = datetime.datetime.now()
 
     # Set user coords to correctly calculate sn visibility when requested
     # @args:
@@ -46,6 +47,9 @@ class Supernova:
         self.lon = lon
         self.height = height
         self.utcoffset = utcoffset
+
+    def set_time(self, q_time):
+        self.q_time = q_time
 
     # Update latest supernovae from sne.space. It is a but outdated, so it is not recommended.
     # @args:
@@ -175,7 +179,7 @@ class Supernova:
         utcoffset = self.utcoffset*u.hour  # Eastern Daylight Time
         # YYY:MM:DD
         #time = Time('2017-3-1 4:00:00') - utcoffset
-        time = Time(datetime.datetime.now()) - utcoffset
+        time = Time(self.q_time) - utcoffset
        
         snaltaz = sn.transform_to(AltAz(obstime=time,location=loc))
         print("Altitude = {0.alt:.2}".format(snaltaz))
@@ -204,7 +208,8 @@ class Supernova:
         utcoffset = self.utcoffset * u.hour  # Eastern Daylight Time
         # YYY:MM:DD
         # time = Time('2017-3-1 4:00:00') - utcoffset
-        time = Time(datetime.datetime.now()) - utcoffset
+
+        time = Time(self.q_time) - utcoffset
 
         snaltaz = sn.transform_to(AltAz(obstime=time, location=loc))
         return(snaltaz.alt.degree)

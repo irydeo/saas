@@ -272,7 +272,7 @@
       <number>0</number>
      </property>
      <property name="maximum">
-      <number>100</number>
+      <number>720</number>
      </property>
      <property name="value">
       <number>1</number>
@@ -422,20 +422,20 @@
       <rect>
        <x>10</x>
        <y>170</y>
-       <width>101</width>
+       <width>68</width>
        <height>34</height>
       </rect>
      </property>
      <property name="text">
-      <string>Slew and sync</string>
+      <string>Slew</string>
      </property>
     </widget>
     <widget class="QPushButton" name="master_focus">
      <property name="geometry">
       <rect>
-       <x>120</x>
+       <x>152</x>
        <y>170</y>
-       <width>101</width>
+       <width>68</width>
        <height>34</height>
       </rect>
      </property>
@@ -513,6 +513,19 @@ color: rgb(255, 0, 0);</string>
      </property>
      <property name="text">
       <string>...</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="master_sync">
+     <property name="geometry">
+      <rect>
+       <x>82</x>
+       <y>170</y>
+       <width>68</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Sync</string>
      </property>
     </widget>
    </widget>
@@ -1295,7 +1308,7 @@ color: rgb(0, 255, 0);</string>
   </action>
   <action name="actionSequence_options">
    <property name="text">
-    <string>&amp;Sequence</string>
+    <string>&amp;Options</string>
    </property>
   </action>
   <action name="actionDual_mode">

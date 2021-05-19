@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>SequenceOptions</class>
- <widget class="QDialog" name="SequenceOptions">
+ <class>SaaSOptions</class>
+ <widget class="QDialog" name="SaaSOptions">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>SaaS Options</string>
   </property>
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
@@ -656,7 +656,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QPushButton" name="updateConfig">
+    <widget class="QPushButton" name="refresh">
      <property name="geometry">
       <rect>
        <x>390</x>
@@ -686,6 +686,9 @@
      <property name="text">
       <string>Enable sequence focus</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QCheckBox" name="op_slew">
      <property name="geometry">
@@ -698,6 +701,9 @@
      </property>
      <property name="text">
       <string>Slew/sync to object coordinates</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QCheckBox" name="op_dithering">
@@ -712,6 +718,9 @@
      <property name="text">
       <string>Enable dithering</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QRadioButton" name="op_use_autoguiding_master">
      <property name="geometry">
@@ -724,6 +733,9 @@
      </property>
      <property name="text">
       <string>Autoguide from master</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QCheckBox" name="op_autofocus_master">
@@ -738,6 +750,9 @@
      <property name="text">
       <string>Autofocus master</string>
      </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
     </widget>
     <widget class="QCheckBox" name="op_autofocus_slave">
      <property name="geometry">
@@ -750,6 +765,9 @@
      </property>
      <property name="text">
       <string>Autofocus slave</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
      </property>
     </widget>
     <widget class="QRadioButton" name="op_use_autoguiding_slave">
@@ -1132,7 +1150,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>SequenceOptions</receiver>
+   <receiver>SaaSOptions</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1148,7 +1166,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>SequenceOptions</receiver>
+   <receiver>SaaSOptions</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

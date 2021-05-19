@@ -17,7 +17,7 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab">
       <attribute name="title">
@@ -66,7 +66,37 @@
          </column>
          <column>
           <property name="text">
+           <string>Mast. exp. (s)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Slav. exp. (s)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Magnitude</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>RA</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>DEC</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Max Int. Time (master)</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>Max. Int. Time (slave)</string>
           </property>
          </column>
         </widget>
@@ -216,26 +246,32 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QDateTimeEdit" name="dateTimeEdit">
+           <widget class="QDateTimeEdit" name="neo_selected_time">
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QSpinBox" name="magnitude">
+           <widget class="QSpinBox" name="neo_magnitude">
             <property name="minimum">
              <number>-5</number>
             </property>
             <property name="maximum">
              <number>25</number>
             </property>
+            <property name="value">
+             <number>20</number>
+            </property>
            </widget>
           </item>
           <item row="2" column="3">
-           <widget class="QSpinBox" name="altitude">
+           <widget class="QSpinBox" name="neo_altitude">
             <property name="maximum">
              <number>90</number>
+            </property>
+            <property name="value">
+             <number>30</number>
             </property>
            </widget>
           </item>
@@ -436,14 +472,24 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QDateTimeEdit" name="dateTimeEdit_2">
+           <widget class="QDateTimeEdit" name="ts_selected_time">
+            <property name="dateTime">
+             <datetime>
+              <hour>0</hour>
+              <minute>0</minute>
+              <second>0</second>
+              <year>2021</year>
+              <month>1</month>
+              <day>1</day>
+             </datetime>
+            </property>
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
           <item row="2" column="2">
-           <widget class="QDateTimeEdit" name="ts_date">
+           <widget class="QDateTimeEdit" name="ts_discovery_date">
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
@@ -457,12 +503,21 @@
             <property name="maximum">
              <number>25</number>
             </property>
+            <property name="value">
+             <number>20</number>
+            </property>
            </widget>
           </item>
           <item row="2" column="4">
            <widget class="QSpinBox" name="ts_altitude">
+            <property name="minimum">
+             <number>-20</number>
+            </property>
             <property name="maximum">
              <number>90</number>
+            </property>
+            <property name="value">
+             <number>30</number>
             </property>
            </widget>
           </item>

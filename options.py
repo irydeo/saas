@@ -16,6 +16,8 @@ class Options:
         self.settings = EasySettings("saas.conf")
 
     def set(self, key, value):
+        if key == "slave_single_exposure":
+            print("Setting: " + str(value))
         self.settings.setsave(key, value)
 
     def get(self, key, default=""):

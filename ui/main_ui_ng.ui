@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>942</width>
-    <height>814</height>
+    <height>699</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -30,35 +30,19 @@
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>80</y>
+      <y>86</y>
       <width>470</width>
-      <height>641</height>
+      <height>551</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QComboBox" name="master_profile">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>161</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="currentText">
-      <string/>
-     </property>
-     <property name="currentIndex">
-      <number>-1</number>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="master_bin">
      <property name="geometry">
       <rect>
-       <x>380</x>
-       <y>78</y>
+       <x>150</x>
+       <y>72</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -90,8 +74,8 @@
     <widget class="QLabel" name="label_39">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>110</y>
+       <x>20</x>
+       <y>102</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -103,8 +87,8 @@
     <widget class="QLabel" name="label_40">
      <property name="geometry">
       <rect>
-       <x>250</x>
-       <y>78</y>
+       <x>20</x>
+       <y>72</y>
        <width>91</width>
        <height>21</height>
       </rect>
@@ -116,7 +100,7 @@
     <widget class="QLabel" name="label_163">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>20</x>
        <y>40</y>
        <width>201</width>
        <height>21</height>
@@ -135,7 +119,7 @@
     <widget class="Line" name="line_25">
      <property name="geometry">
       <rect>
-       <x>250</x>
+       <x>20</x>
        <y>55</y>
        <width>211</width>
        <height>21</height>
@@ -156,8 +140,8 @@
     <widget class="QSpinBox" name="master_single_exposure">
      <property name="geometry">
       <rect>
-       <x>380</x>
-       <y>110</y>
+       <x>150</x>
+       <y>102</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -190,7 +174,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>142</y>
+       <y>70</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -203,7 +187,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>142</y>
+       <y>70</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -236,7 +220,7 @@
      <property name="geometry">
       <rect>
        <x>250</x>
-       <y>172</y>
+       <y>100</y>
        <width>121</width>
        <height>21</height>
       </rect>
@@ -249,7 +233,7 @@
      <property name="geometry">
       <rect>
        <x>380</x>
-       <y>172</y>
+       <y>100</y>
        <width>81</width>
        <height>22</height>
       </rect>
@@ -282,7 +266,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>250</y>
+       <y>284</y>
        <width>455</width>
        <height>250</height>
       </rect>
@@ -301,7 +285,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>244</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -320,47 +304,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>230</y>
-       <width>211</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_167">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>201</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Profile</string>
-     </property>
-    </widget>
-    <widget class="Line" name="line_27">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>55</y>
+       <y>264</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -381,7 +325,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>140</y>
+       <y>170</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -402,7 +346,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>120</y>
+       <y>150</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -421,7 +365,7 @@
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>160</y>
+       <y>190</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -434,7 +378,7 @@
      <property name="geometry">
       <rect>
        <x>120</x>
-       <y>160</y>
+       <y>190</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -446,10 +390,10 @@
     <widget class="QLabel" name="label_177">
      <property name="geometry">
       <rect>
-       <x>170</x>
-       <y>10</y>
-       <width>101</width>
-       <height>21</height>
+       <x>171</x>
+       <y>11</y>
+       <width>97</width>
+       <height>20</height>
       </rect>
      </property>
      <property name="font">
@@ -465,9 +409,9 @@
     <widget class="QLabel" name="log">
      <property name="geometry">
       <rect>
-       <x>12</x>
-       <y>460</y>
-       <width>450</width>
+       <x>19</x>
+       <y>284</y>
+       <width>441</width>
        <height>41</height>
       </rect>
      </property>
@@ -479,21 +423,21 @@ color: rgb(0, 255, 0);</string>
       <string>Image info overlayed</string>
      </property>
      <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
      </property>
     </widget>
     <widget class="QLabel" name="log_signal">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>510</y>
+       <y>490</y>
        <width>450</width>
        <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgba(0, 0, 0, 0.9);
-color: rgb(0, 255, 0);</string>
+      <string notr="true">background-color: rgba(0, 0, 0, 0.2);
+color: rgb(255, 0, 0);</string>
      </property>
      <property name="text">
       <string>Image info overlayed</string>
@@ -502,17 +446,23 @@ color: rgb(0, 255, 0);</string>
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
     </widget>
-    <widget class="QPushButton" name="master_adv_options">
+    <widget class="QLabel" name="label_181">
      <property name="geometry">
       <rect>
-       <x>180</x>
-       <y>81</y>
-       <width>41</width>
-       <height>34</height>
+       <x>274</x>
+       <y>11</y>
+       <width>100</width>
+       <height>20</height>
       </rect>
      </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
      <property name="text">
-      <string>...</string>
+      <string>(none selected)</string>
      </property>
     </widget>
    </widget>
@@ -531,9 +481,9 @@ color: rgb(0, 255, 0);</string>
     <widget class="QSpinBox" name="integration_time">
      <property name="geometry">
       <rect>
-       <x>850</x>
+       <x>660</x>
        <y>40</y>
-       <width>81</width>
+       <width>91</width>
        <height>31</height>
       </rect>
      </property>
@@ -566,28 +516,10 @@ color: rgb(0, 255, 0);</string>
       <number>300</number>
      </property>
     </widget>
-    <widget class="QLabel" name="label_42">
-     <property name="geometry">
-      <rect>
-       <x>655</x>
-       <y>45</y>
-       <width>191</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Total integration (seconds)</string>
-     </property>
-    </widget>
     <widget class="QLineEdit" name="object_name">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>150</x>
        <y>40</y>
        <width>161</width>
        <height>32</height>
@@ -612,7 +544,7 @@ border:none;</string>
     <widget class="QLabel" name="label_175">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>150</x>
        <y>10</y>
        <width>161</width>
        <height>21</height>
@@ -631,7 +563,7 @@ border:none;</string>
     <widget class="Line" name="line_29">
      <property name="geometry">
       <rect>
-       <x>10</x>
+       <x>150</x>
        <y>20</y>
        <width>161</width>
        <height>21</height>
@@ -652,7 +584,7 @@ border:none;</string>
     <widget class="QLineEdit" name="ar">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>320</x>
        <y>40</y>
        <width>161</width>
        <height>32</height>
@@ -677,7 +609,7 @@ border: none;</string>
     <widget class="QLineEdit" name="dec">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>490</x>
        <y>40</y>
        <width>161</width>
        <height>32</height>
@@ -702,7 +634,7 @@ border: none</string>
     <widget class="QLabel" name="label_179">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>320</x>
        <y>10</y>
        <width>31</width>
        <height>21</height>
@@ -721,7 +653,7 @@ border: none</string>
     <widget class="QLabel" name="label_180">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>490</x>
        <y>10</y>
        <width>31</width>
        <height>21</height>
@@ -737,23 +669,10 @@ border: none</string>
       <string>DEC</string>
      </property>
     </widget>
-    <widget class="QPushButton" name="get_coords">
-     <property name="geometry">
-      <rect>
-       <x>530</x>
-       <y>40</y>
-       <width>101</width>
-       <height>34</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Get</string>
-     </property>
-    </widget>
     <widget class="Line" name="line_35">
      <property name="geometry">
       <rect>
-       <x>180</x>
+       <x>490</x>
        <y>20</y>
        <width>161</width>
        <height>21</height>
@@ -774,7 +693,7 @@ border: none</string>
     <widget class="Line" name="line_36">
      <property name="geometry">
       <rect>
-       <x>350</x>
+       <x>320</x>
        <y>20</y>
        <width>161</width>
        <height>21</height>
@@ -792,6 +711,99 @@ border: none</string>
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
+    <widget class="Line" name="line_37">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>20</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>10</pointsize>
+      </font>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Plain</enum>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_182">
+     <property name="geometry">
+      <rect>
+       <x>660</x>
+       <y>10</y>
+       <width>91</width>
+       <height>21</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Integration</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="open_object_selector">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>121</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Object Manager</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="start">
+     <property name="geometry">
+      <rect>
+       <x>850</x>
+       <y>40</y>
+       <width>81</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Start</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="stop">
+     <property name="geometry">
+      <rect>
+       <x>760</x>
+       <y>40</y>
+       <width>91</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>16</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Stop</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QGroupBox" name="slaveSystem">
     <property name="geometry">
@@ -799,28 +811,12 @@ border: none</string>
       <x>470</x>
       <y>80</y>
       <width>470</width>
-      <height>641</height>
+      <height>561</height>
      </rect>
     </property>
     <property name="title">
      <string/>
     </property>
-    <widget class="QComboBox" name="slave_profile">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>82</y>
-       <width>211</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="currentText">
-      <string/>
-     </property>
-     <property name="currentIndex">
-      <number>-1</number>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="slave_bin">
      <property name="geometry">
       <rect>
@@ -895,74 +891,6 @@ border: none</string>
       <enum>Qt::Horizontal</enum>
      </property>
     </widget>
-    <widget class="QLineEdit" name="slave_host">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>142</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>localhost</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="slave_port">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>142</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>3277</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_173">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>122</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Server</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_174">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>122</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Port</string>
-     </property>
-    </widget>
     <widget class="QSpinBox" name="slave_single_exposure">
      <property name="geometry">
       <rect>
@@ -1033,7 +961,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>330</y>
+       <y>290</y>
        <width>455</width>
        <height>250</height>
       </rect>
@@ -1052,7 +980,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>310</y>
+       <y>270</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -1073,7 +1001,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>290</y>
+       <y>250</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -1085,54 +1013,14 @@ border: none</string>
       </font>
      </property>
      <property name="text">
-      <string>Latest image from slave</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_170">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>40</y>
-       <width>201</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <weight>75</weight>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="text">
-      <string>Profile</string>
-     </property>
-    </widget>
-    <widget class="Line" name="line_32">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>55</y>
-       <width>211</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Plain</enum>
-     </property>
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <string>Slave status</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_171">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>190</y>
+       <y>35</y>
        <width>201</width>
        <height>21</height>
       </rect>
@@ -1153,8 +1041,8 @@ border: none</string>
      </property>
      <property name="geometry">
       <rect>
-       <x>120</x>
-       <y>230</y>
+       <x>10</x>
+       <y>75</y>
        <width>101</width>
        <height>34</height>
       </rect>
@@ -1167,7 +1055,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>55</y>
        <width>211</width>
        <height>21</height>
       </rect>
@@ -1246,7 +1134,7 @@ border: none</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>585</y>
+       <y>500</y>
        <width>455</width>
        <height>41</height>
       </rect>
@@ -1262,272 +1150,6 @@ color: rgb(0, 255, 0);</string>
       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
      </property>
     </widget>
-    <widget class="QLabel" name="label_166">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>200</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Port</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_165">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>200</y>
-       <width>81</width>
-       <height>21</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <pointsize>10</pointsize>
-      </font>
-     </property>
-     <property name="text">
-      <string>Server</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="master_host">
-     <property name="geometry">
-      <rect>
-       <x>240</x>
-       <y>220</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>localhost</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="master_port">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>220</y>
-       <width>101</width>
-       <height>32</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>3277</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-     </property>
-    </widget>
-    <widget class="QGroupBox" name="sm_burst_options">
-     <property name="enabled">
-      <bool>false</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>260</y>
-       <width>221</width>
-       <height>101</height>
-      </rect>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <property name="flat">
-      <bool>true</bool>
-     </property>
-     <widget class="QLabel" name="fo_3">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>10</y>
-        <width>131</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Group every:</string>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="sm_group_every">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>10</y>
-        <width>71</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::ActionsContextMenu</enum>
-      </property>
-      <property name="toolTip">
-       <string>Group every selected number of frames</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-      <property name="minimum">
-       <number>0</number>
-      </property>
-      <property name="maximum">
-       <number>100</number>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-     </widget>
-     <widget class="QSpinBox" name="sm_group_delay">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>40</y>
-        <width>71</width>
-        <height>22</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="contextMenuPolicy">
-       <enum>Qt::ActionsContextMenu</enum>
-      </property>
-      <property name="toolTip">
-       <string>Delay between groups</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-      <property name="minimum">
-       <number>0</number>
-      </property>
-      <property name="maximum">
-       <number>100</number>
-      </property>
-      <property name="value">
-       <number>1</number>
-      </property>
-     </widget>
-     <widget class="QLabel" name="fo_5">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>131</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Grouping delay:</string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="sm_group_keyword">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>80</y>
-        <width>71</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>GROUP</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLabel" name="fo_6">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>80</y>
-        <width>131</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Grouping keyword:</string>
-      </property>
-     </widget>
-    </widget>
-   </widget>
-   <widget class="QPushButton" name="start">
-    <property name="geometry">
-     <rect>
-      <x>806</x>
-      <y>725</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Start</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="stop">
-    <property name="geometry">
-     <rect>
-      <x>668</x>
-      <y>725</y>
-      <width>131</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>16</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="text">
-     <string>Stop</string>
-    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
@@ -1576,7 +1198,7 @@ color: rgb(0, 255, 0);</string>
   </action>
   <action name="actionSequence_options">
    <property name="text">
-    <string>&amp;Sequence options</string>
+    <string>&amp;Options</string>
    </property>
   </action>
   <action name="actionDual_mode">
