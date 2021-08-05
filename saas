@@ -1,0 +1,4 @@
+#!/bin/bash
+export PYTHONPATH=/usr/share/ccdciel/scripts
+echo dirname `dirname "$0"`
+python3 `dirname "$0"`/saas.py
