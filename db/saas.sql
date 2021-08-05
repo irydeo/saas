@@ -9,7 +9,20 @@ CREATE TABLE sn(
 	type text 
 );
 
-CREATE TABLE neo(
+CREATE TABLE neo_prio(
+    name text PRIMARY KEY,
+	date text,
+    prio integer,
+	ra text,
+	dec text,
+	m real,
+	elong integer,
+	alt real,
+	motion real,
+	mag real
+);
+
+CREATE TABLE neo_app(
     name text PRIMARY KEY,
 	date text,
     prio integer,

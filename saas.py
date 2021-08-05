@@ -324,7 +324,8 @@ class Saas(Ui_MainWindow):
             if self.is_dual_mode_enabled:
                 self.director.autofocus("slave")
 
-            #self.director.start_guiding()
+            if self.options.get("op_guiding", False):
+                self.director.start_guiding()
 
             self.seq_thread = threading.Thread(target= self.director.start_seq)
             self.seq_thread.start()

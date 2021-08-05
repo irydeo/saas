@@ -26,7 +26,7 @@ class Commands:
         os.environ['CCDCIEL_HOST'] = self.phost
         os.environ['CCDCIEL_PORT'] = self.pport
 
-    def capture(self, exposure, frametype='Light', objectname='NoName', binning=1, count = 1):
+    def capture(self, exposure, frametype='Light', objectname='NoName', binning=1, count = 1, dither=0):
 
         if not self.debug:
             self.set_self_url()
@@ -34,7 +34,9 @@ class Commands:
             ccdciel('Capture_setframetype', frametype)['result']
             ccdciel('Capture_setobjectname', objectname)['result']
             ccdciel('Capture_setcount', count)['result']
-            ccdciel('Preview_setbinning', binning)['result']
+            ccdciel('Capture_setbinning', binning)['result']
+            if dither != 0:
+                ccdciel('Capture_setdither', dither)['result']
             ccdciel('Capture_start')['result']
         else:
             print("DEBUG CMD: Capture_start")

@@ -157,7 +157,7 @@ class Director:
         # Burst number = Exposures / Group_every
 
         for i in range(int(self.master_burst)):
-            self.master.capture(self.master_single_exposure_time, self.frame_type,  self.object_name + "_" + self.sm_group_keyword + "_" + str(i) , self.master_binning, self.sm_group_every)
+            self.master.capture(self.master_single_exposure_time, self.frame_type,  self.object_name + "_" + self.sm_group_keyword + "_" + str(i) , self.master_binning, self.sm_group_every, self.dither_per_exposures)
             # Wait till master burst is finished
             while self.master.is_capturing():
                 print("Waiting for the end of current master burst")

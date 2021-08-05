@@ -91,22 +91,34 @@ class ObjectSelector(Ui_ObjectSelector):
         reply = QMessageBox.question(self.dialog, 'Update NEOs database',
                                      msg, QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
 
+
+
         if reply == QMessageBox.Yes:
             dialog = QtWidgets.QDialog()
             dialog.ui = Ui_Wait()
             dialog.ui.setupUi(dialog)
 
-            thread = threading.Thread(target=self.update_neo_db_thread, args=(dialog,))
+            # Get event type
+            if self.neo_event_type.currentIndex() == 0:
+                event_type="prio"
+            else:
+                event_type="close"
+
+
+            thread = threading.Thread(target=self.update_neo_db_thread, args=(dialog,event_type,))
             thread.start()
 
             dialog.exec_()
             #dialog.show()
 
 
-    def update_neo_db_thread(self, d):
+    def update_neo_db_thread(self, d, event_type):
         d.ui.msg.setText("Updating NEOs database at " + self.neo_selected_time.text())
         self.update_prio_list.setEnabled(False)
-        self.neo.update()
+
+        # Get event type (prio or close)
+        self.neo.set_event_type(event_type)
+        self.neo.update(event=event_type)
         self.update_prio_list.setEnabled(True)
         d.ui.msg.setText("Finished...")
         d.hide()
@@ -148,27 +160,29 @@ class ObjectSelector(Ui_ObjectSelector):
                 # First, get altitude
                 altitude = self.neo.get_current_altitude(str(row[0]))
                 if altitude >= self.neo_altitude.value():
+                    # Current AR/DEC
+                    results = self.neo.get_current_data(str(row[0]))
+
                     self.neo_data.setRowCount(index+1)
                     self.neo_data.setItem(index, 0, QTableWidgetItem(str(row[0])))
                     self.neo_data.setItem(index, 1, QTableWidgetItem(str(row[1])))
 
                     self.neo_data.setItem(index, 2, QTableWidgetItem(str(altitude)))
-                    self.neo_data.setItem(index, 3, QTableWidgetItem(str(round(row[2],2))))
+                    self.neo_data.setItem(index, 3, QTableWidgetItem(str(round(results[3],2))))
 
                     # TODO: Calculate current altidude here, in fact, add a button to update ephemerids on dialog, does it make sense to do it when update?
 
-                    self.neo_data.setItem(index, 4, QTableWidgetItem(str(int(master_resolution / (row[2] / 60)))))
-                    self.neo_data.setItem(index, 5, QTableWidgetItem(str(int(slave_resolution / (row[2] / 60)))))
+                    self.neo_data.setItem(index, 4, QTableWidgetItem(str(int(master_resolution / (results[3] / 60)))))
+                    self.neo_data.setItem(index, 5, QTableWidgetItem(str(int(slave_resolution / (results[3] / 60)))))
                     self.neo_data.setItem(index, 6, QTableWidgetItem(str(row[3])))
 
-                    # Current AR/DEC
-                    coords = self.neo.get_current_ardec(str(row[0]))
-                    self.neo_data.setItem(index, 7, QTableWidgetItem(coords[0]))
-                    self.neo_data.setItem(index, 8, QTableWidgetItem(coords[1]))
+
+                    self.neo_data.setItem(index, 7, QTableWidgetItem(results[0]))
+                    self.neo_data.setItem(index, 8, QTableWidgetItem(results[1]))
 
                     diagonal_size = 0.54
                     size_arcsec = 3600 * diagonal_size
-                    motion_arcsec_per_minute = row[2]
+                    motion_arcsec_per_minute = results[3]
                     max_exp_time_minutes = (size_arcsec / motion_arcsec_per_minute) / 2 # by two, considering at start is in the middle/centered
                     self.neo_data.setItem(index, 9, QTableWidgetItem(str(round(max_exp_time_minutes))))
 
