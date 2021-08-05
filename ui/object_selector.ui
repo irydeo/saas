@@ -6,14 +6,24 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>763</width>
-    <height>614</height>
+    <width>816</width>
+    <height>682</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SaaS Object Manager</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
+   <item row="1" column="0">
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
@@ -133,6 +143,19 @@
            </widget>
           </item>
           <item row="0" column="1">
+           <widget class="QLabel" name="event_type_label_2">
+            <property name="font">
+             <font>
+              <weight>75</weight>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="text">
+             <string>Event type</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
            <widget class="QLabel" name="label_170">
             <property name="font">
              <font>
@@ -145,7 +168,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="2">
+          <item row="0" column="3">
            <widget class="QLabel" name="label_168">
             <property name="font">
              <font>
@@ -158,7 +181,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="3">
+          <item row="0" column="4">
            <widget class="QLabel" name="label_169">
             <property name="font">
              <font>
@@ -171,7 +194,7 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="4" rowspan="2">
+          <item row="0" column="5">
            <widget class="QPushButton" name="update_db">
             <property name="text">
              <string>Update</string>
@@ -194,7 +217,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="Line" name="line_32">
+           <widget class="Line" name="line_44">
             <property name="font">
              <font>
               <pointsize>10</pointsize>
@@ -209,7 +232,7 @@
            </widget>
           </item>
           <item row="1" column="2">
-           <widget class="Line" name="line_30">
+           <widget class="Line" name="line_32">
             <property name="font">
              <font>
               <pointsize>10</pointsize>
@@ -224,6 +247,21 @@
            </widget>
           </item>
           <item row="1" column="3">
+           <widget class="Line" name="line_30">
+            <property name="font">
+             <font>
+              <pointsize>10</pointsize>
+             </font>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="4">
            <widget class="Line" name="line_31">
             <property name="font">
              <font>
@@ -238,6 +276,13 @@
             </property>
            </widget>
           </item>
+          <item row="1" column="5" rowspan="2">
+           <widget class="QPushButton" name="update_prio_list">
+            <property name="text">
+             <string>Query</string>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0">
            <widget class="QLineEdit" name="neo_name">
             <property name="text">
@@ -246,13 +291,27 @@
            </widget>
           </item>
           <item row="2" column="1">
+           <widget class="QComboBox" name="neo_event_type">
+            <item>
+             <property name="text">
+              <string>Priority List</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Close Approaches</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="2" column="2">
            <widget class="QDateTimeEdit" name="neo_selected_time">
             <property name="calendarPopup">
              <bool>true</bool>
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
+          <item row="2" column="3">
            <widget class="QSpinBox" name="neo_magnitude">
             <property name="minimum">
              <number>-5</number>
@@ -265,20 +324,13 @@
             </property>
            </widget>
           </item>
-          <item row="2" column="3">
+          <item row="2" column="4">
            <widget class="QSpinBox" name="neo_altitude">
             <property name="maximum">
              <number>90</number>
             </property>
             <property name="value">
              <number>30</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="4">
-           <widget class="QPushButton" name="update_prio_list">
-            <property name="text">
-             <string>Query</string>
             </property>
            </widget>
           </item>
@@ -289,7 +341,7 @@
      </widget>
      <widget class="QWidget" name="tab_2">
       <attribute name="title">
-       <string>Transient</string>
+       <string>Transient Phenomena</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_5">
        <item row="0" column="0">
@@ -588,16 +640,6 @@
        </item>
       </layout>
      </widget>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
-     </property>
     </widget>
    </item>
   </layout>
