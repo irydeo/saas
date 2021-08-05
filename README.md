@@ -7,12 +7,15 @@ SaaS is an open source software that uses CCDCiel to improve its sequence capabi
  - Dual or single scope control.
  - Dual scope management/sync using a master/slave approach.
  - Extra options in single mode operation.
+ - Scientific object management (NEOs and Supernovas)
  - Full CCDCiel integration.
  - pyQT5 interface.
  - Multiplatform support (Linux and Windows).
 
 ### Disclaimer:
-Be aware that SaaS **is in an early development stage and far to be ready for general use**. 
+Be aware that SaaS **is in an early development stage and far to be ready for general use**.
+
+
 
 	
 
