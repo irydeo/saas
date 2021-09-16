@@ -49,6 +49,14 @@ class Commands:
         else:
             print("DEBUG CMD: Autoguider_startguiding")
 
+    def stop_guide(self):
+
+        if not self.debug:
+            self.set_self_url()
+            ccdciel('Autoguider_stopguiding')['result']
+        else:
+            print("DEBUG CMD: Autoguider_startguiding")
+
     def slew(self, ra, dec):
         self.set_self_url()
         print(self.phost)
@@ -69,7 +77,11 @@ class Commands:
     def is_capturing(self):
         if not self.debug:
             self.set_self_url()
-            return (ccdciel('Capture_running')['result'])
+            result = ccdciel('Capture_running')['result']
+            if bool(result): # Check if empty
+                return result
+            else:
+                return False
         else:
             print("DEBUG CMD: Capture_running")
             self.simulator_number_of_calls += 1
@@ -86,10 +98,21 @@ class Commands:
             print("DEBUG CMD: Telescope_slewing")
             return 0
 
-    def do_dither(self):
+    def is_guiding(self):
+        if not self.debug:
+            self.set_self_url()
+            return ccdciel('Autoguider_guiding')['result']
+        else:
+            print("DEBUG CMD: Guiding")
+            return 0
 
+    def do_dither(self):
         if not self.debug:
             self.set_self_url()  # Send message in the self node
-            #ccdciel('Autoguider_dither')['result']
+            ccdciel('Autoguider_dither')['result']
         else:
-            print("DEBUG CMD: Capture_running")
+            print("DEBUG CMD: Dither_running")
+
+    def wheel_setfilter(self, number):
+        self.set_self_url()
+        ccdciel('Wheel_setfilter', number)['result']

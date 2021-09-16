@@ -16,8 +16,9 @@ from logger import Logger
 
 class Director:
 
-    def __init__(self, logger, dual_mode=True):
+    def __init__(self, logger, options, dual_mode=True):
         print("Creating new director engine...")
+        self.options = options
         self.dual_mode=dual_mode
         self.master_host = "localhost"
         self.master_port = 3277
@@ -110,8 +111,20 @@ class Director:
         if node == "slave":
             self.slave.autofocus()
 
-    def start_guiding(self):
-        self.master.guide()
+    def start_guiding(self, node="master"):
+        if node == "master":
+            self.master.guide()
+        if node == "slave":
+            self.slave.guide()
+
+    def stop_guiding(self, node="master"):
+        if node == "master":
+            self.master.stop_guide()
+        if node == "slave":
+            self.slave.stop_guide()
+
+    def is_guiding(self, node="master"):
+       return self.master.is_guiding()
 
     def calculate_params(self):
         if self.dual_mode:
@@ -120,9 +133,9 @@ class Director:
             print("Master burst: " + str(self.master_burst))
             print("Master dither every: " + str(self.dither_per_exposures))
             print("Total master exposures: " + str(self.master_number_of_exposures))
-
+            # We consider 10% in download time in master
             self.slave_burst = round(
-                (self.master_single_exposure_time * self.dither_per_exposures) / self.slave_single_exposure_time)
+                ((self.master_single_exposure_time + (self.master_single_exposure_time* 0.10)) * self.dither_per_exposures) / self.slave_single_exposure_time)
             print("Slave burst (dither every): " + str(self.slave_burst))
             self.slave_number_of_exposures = self.slave_burst * self.master_burst
             print("Total slave exposures: " + str(self.slave_number_of_exposures))
@@ -141,7 +154,7 @@ class Director:
             time.sleep(self.master_single_exposure_time)
 
         # Aditional waiting time
-        time.sleep(self.master_single_exposure_time)
+        #time.sleep(self.master_single_exposure_time)
 
         print("Let's go...")
         if self.dual_mode:
@@ -149,12 +162,19 @@ class Director:
         else:
             self.start_single_mode_seq()
 
+        # Execute EOS
+        self.stop_guiding()
+        self.end_of_sequence()
+
     def start_single_mode_seq(self):
         print("Using single mode...")
         self.calculate_params()
         # Calculate number of groups:
         # Exposures = Total integration time / single exp
         # Burst number = Exposures / Group_every
+
+        if self.master_burst == 0:
+            self.master_burst =1
 
         for i in range(int(self.master_burst)):
             self.master.capture(self.master_single_exposure_time, self.frame_type,  self.object_name + "_" + self.sm_group_keyword + "_" + str(i) , self.master_binning, self.sm_group_every, self.dither_per_exposures)
@@ -178,6 +198,16 @@ class Director:
             self.slave.capture(self.slave_single_exposure_time, self.frame_type, "slave__" + self.object_name,
                                self.slave_binning, self.slave_burst)
 
+            # Seguimos sólo cuando ambos terminen
+            while self.slave.is_capturing() or self.master.is_capturing():
+                # Wait till the end of both sequences
+                time.sleep(self.master_single_exposure_time)
+                print("Capturing")
+
+            self.master.do_dither()
+            print("Dithering...")
+
+            # REview below code, is not working
             if self.current_master_exposures == self.master_burst:
                 while self.slave.is_capturing():
                     print("Waiting for the end of current slave burst")
@@ -192,4 +222,32 @@ class Director:
             while self.master.is_capturing():
                 print("Waiting for the end of current master burst")
                 time.sleep(self.master_single_exposure_time)
+            # End of code to review
+
+
+    def end_of_sequence(self):
+        # Set filter
+        self.master.wheel_setfilter(int(self.options.get("op_selected_filter_master", "1")))
+        self.slave.wheel_setfilter(int(self.options.get("op_selected_filter_slave", "1")))
+
+        # Take exposures of X and Y duration (darks) - number already configured
+        self.master.capture(self.master_single_exposure_time, "Dark", "master_dark__" + self.object_name,
+                                self.master_binning, count=self.options.get("n_master_darks", 10))
+        if self.dual_mode:
+            self.slave.capture(self.slave_single_exposure_time, "Dark", "slave_dark__" + self.object_name,
+                               self.slave_binning, count=self.options.get("n_slave_darks", 10))
+        # Wait!!
+        while self.slave.is_capturing() or self.master.is_capturing():
+            print("Waiting for the end of current slave burst")
+            time.sleep(self.slave_single_exposure_time)
+
+        # Take exposures of 0 duration (bias) - number already configured
+        self.master.capture(0, "Bias", "master_bias__" + self.object_name,
+                            self.master_binning,count=self.options.get("n_master_bias", 10))
+        if self.dual_mode:
+            self.slave.capture(0, "Bias", "slave_bias__" + self.object_name,
+                           self.slave_binning,count=self.options.get("n_slave_bias", 10))
+
+        # If configured: Park
+        # If configured: Close
 

@@ -172,8 +172,8 @@ class ObjectSelector(Ui_ObjectSelector):
 
                     # TODO: Calculate current altidude here, in fact, add a button to update ephemerids on dialog, does it make sense to do it when update?
 
-                    self.neo_data.setItem(index, 4, QTableWidgetItem(str(int(master_resolution / (results[3] / 60)))))
-                    self.neo_data.setItem(index, 5, QTableWidgetItem(str(int(slave_resolution / (results[3] / 60)))))
+                    self.neo_data.setItem(index, 4, QTableWidgetItem(str(float(master_resolution / (results[3] / 60)))))
+                    self.neo_data.setItem(index, 5, QTableWidgetItem(str(float(slave_resolution / (results[3] / 60)))))
                     self.neo_data.setItem(index, 6, QTableWidgetItem(str(row[3])))
 
 

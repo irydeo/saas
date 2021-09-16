@@ -123,6 +123,14 @@ class SaasOptions(Ui_SaaSOptions):
         port = self.profiles.get_port(self.slave_profile.currentText())
         self.options.set("slave_port", port)
 
+        self.options.set("n_master_darks", self.n_master_darks.value())
+        self.options.set("n_slave_darks", self.n_slave_darks.value())
+        self.options.set("n_master_bias", self.n_master_bias.value())
+        self.options.set("n_slave_bias", self.n_slave_bias.value())
+
+        self.options.set("op_selected_filter_master", self.op_selected_filter_master.currentText())
+        self.options.set("op_selected_filter_slave", self.op_selected_filter_slave.currentText())
+
     def load_options(self):
         self.op_master_fl.setValue(int(self.options.get("op_master_fl", 800)))
         self.op_slave_fl.setValue(int(self.options.get("op_slave_fl", 800)))
@@ -147,6 +155,15 @@ class SaasOptions(Ui_SaaSOptions):
 
         self.master_profile.setCurrentText(self.options.get("master_profile", ""))
         self.slave_profile.setCurrentText(self.options.get("slave_profile", ""))
+
+        self.n_master_darks.setValue(int(self.options.get("n_master_darks", 10)))
+        self.n_slave_darks.setValue(int(self.options.get("n_slave_darks", 10)))
+        self.n_master_bias.setValue(int(self.options.get("n_master_bias", 10)))
+        self.n_slave_bias.setValue(int(self.options.get("n_slave_bias", 10)))
+
+        self.op_selected_filter_master.setCurrentText(str(self.options.get("op_selected_filter_master", "1")))
+        self.op_selected_filter_slave.setCurrentText(str(self.options.get("op_selected_filter_slave", "1")))
+
 
     ##################
     ## Master advanced options

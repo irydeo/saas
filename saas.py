@@ -47,7 +47,7 @@ class Saas(Ui_MainWindow):
         # Logger and Director
         self.logger = Logger()
         self.logger.log_signal.connect(self.update_from_signal)
-        self.director = Director(self.logger)
+        self.director = Director(self.logger, self.options)
 
         # Load profiles
         self.master_profile.addItems(self.profiles.get_list())
@@ -320,12 +320,20 @@ class Saas(Ui_MainWindow):
 
             if self.options.get("op_focus", False):
                 self.director.autofocus("master")
-
-            if self.is_dual_mode_enabled:
                 self.director.autofocus("slave")
 
             if self.options.get("op_guiding", False):
                 self.director.start_guiding()
+                # Wait till guiding
+
+                tries = 0
+                while self.director.is_guiding():
+                    if tries > 5:
+                        break
+
+                    print("Waiting...")
+                    time.sleep(2)
+                    tries = tries + 1
 
             self.seq_thread = threading.Thread(target= self.director.start_seq)
             self.seq_thread.start()
